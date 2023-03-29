@@ -21,7 +21,7 @@ namespace MachineHealthCheck.API
             services
                 .AddDatabase()
                 .AddServices()
-                .AddCors();
+                .AddCORS();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
