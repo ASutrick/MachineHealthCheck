@@ -1,0 +1,49 @@
+<nav-bar></nav-bar>
+<div class="main-container">
+    <div class="main-container-line"><hr></div>
+    <div class="table-container">
+        <div class="table-container-title">Machine Health Check</div>
+        <mat-table class="table-design" #table [dataSource]="dataSource">
+            <ng-container matColumnDef="clientName">
+                <mat-header-cell class="table-font" *matHeaderCellDef> Client Name </mat-header-cell>
+                <mat-cell class="table-font" *matCellDef="let machine">{{machine.clientName}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="machineName">
+                <mat-header-cell class="table-font" *matHeaderCellDef> Machine Name </mat-header-cell>
+                <mat-cell class="table-font" *matCellDef="let machine">{{machine.machineName}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="dateChecked">
+                <mat-header-cell class="table-font" *matHeaderCellDef> Last Check-In </mat-header-cell>
+                <mat-cell class="table-font" *matCellDef="let machine">{{machine.dateChecked}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="checkServer">
+                <mat-header-cell class="table-font" *matHeaderCellDef> </mat-header-cell>
+                <mat-cell class="table-font" *matCellDef="let machine">
+                    <button class="check-server-button" id="check-single">
+                        <div class="button-text">
+                            Check Server
+                        </div>
+                    </button>
+                </mat-cell>                
+            </ng-container>
+            <ng-container matColumnDef="delete">
+                <mat-header-cell class="table-font" *matHeaderCellDef> </mat-header-cell>
+                <mat-cell class="table-font" *matCellDef="let machine">
+                    <button class="check-server-button" id="check-single">
+                        <div class="button-text">
+                            Delete
+                        </div>
+                    </button>
+                </mat-cell>                
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+        </mat-table>
+    </div>
+</div>
+<footer>
+    <button type="button" class="dark-mode-button" title="Dark Mode" (click)='toggleDarkTheme(); toggleIcon=!toggleIcon'>
+        <mat-icon class="material-icons" *ngIf="!toggleIcon">brightness_2</mat-icon>
+        <mat-icon class="material-icons" *ngIf="toggleIcon">brightness_5</mat-icon>
+    </button>
+</footer>
