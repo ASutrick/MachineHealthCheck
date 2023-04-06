@@ -1,6 +1,6 @@
 export interface MachineInfo {
-    machineId: string;
-    clientName: string;
-    machineName: string;
-    dateChecked: string;
+    Id: string;
+    ClientName: string;
+    MachineName: string;
+    HealthChecks: number;
 }
