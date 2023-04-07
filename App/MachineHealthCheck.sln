@@ -9,13 +9,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MachineHealthCheck.Infrastr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MachineHealthCheck.Service", "Service\MachineHealthCheck.Service.csproj", "{39B60325-34FC-4CC6-8E3C-6FBD7A031EDD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MachineHealthCheck.API", "API\MachineHealthCheck.API.csproj", "{75E4BA47-23E3-4C8E-8B4A-61A4F045C545}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MachineHealthCheck.API", "API\MachineHealthCheck.API.csproj", "{75E4BA47-23E3-4C8E-8B4A-61A4F045C545}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{CD516044-E036-4EC4-9D9C-DB38830BBD18}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "App", "App", "{55F904E8-29E8-4A5C-9F83-E542EA066894}"
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "MachineHealthCheck.Web", "..\Web\MachineHealthCheck.Web.esproj", "{FE450574-5BF8-45D6-BF96-71D7B374AF48}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SignalRHealthCheck", "SignalRHealthCheck", "{423962ED-CABA-48B7-80D5-3D4CCD8C38BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealthCheck.Host", "SignalR.Host\HealthCheck.Host.csproj", "{0364D39A-E316-46C8-A05B-38790B02A4F8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +49,10 @@ Global
 		{FE450574-5BF8-45D6-BF96-71D7B374AF48}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FE450574-5BF8-45D6-BF96-71D7B374AF48}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FE450574-5BF8-45D6-BF96-71D7B374AF48}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{0364D39A-E316-46C8-A05B-38790B02A4F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0364D39A-E316-46C8-A05B-38790B02A4F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0364D39A-E316-46C8-A05B-38790B02A4F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0364D39A-E316-46C8-A05B-38790B02A4F8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -55,6 +63,7 @@ Global
 		{39B60325-34FC-4CC6-8E3C-6FBD7A031EDD} = {55F904E8-29E8-4A5C-9F83-E542EA066894}
 		{75E4BA47-23E3-4C8E-8B4A-61A4F045C545} = {55F904E8-29E8-4A5C-9F83-E542EA066894}
 		{FE450574-5BF8-45D6-BF96-71D7B374AF48} = {CD516044-E036-4EC4-9D9C-DB38830BBD18}
+		{0364D39A-E316-46C8-A05B-38790B02A4F8} = {423962ED-CABA-48B7-80D5-3D4CCD8C38BB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D5E04DAB-B7DE-4C4D-AD26-A1EEA5564377}

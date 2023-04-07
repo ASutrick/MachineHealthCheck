@@ -74,9 +74,16 @@ namespace MachineHealthCheck.Infrastructure
                 return;
             //
             // Close connection
-            if (DbContext.Database.GetDbConnection().State == ConnectionState.Open)
+            try
             {
-                DbContext.Database.GetDbConnection().Close();
+                if (DbContext.Database.GetDbConnection().State == ConnectionState.Open)
+                {
+                    DbContext.Database.GetDbConnection().Close();
+                }
+            }
+            catch(ObjectDisposedException ob)
+            {
+
             }
             DbContext.Dispose();
 
