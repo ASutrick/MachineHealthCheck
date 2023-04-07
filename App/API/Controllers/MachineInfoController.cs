@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace MachineHealthCheck.API.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class MachineInfoController : Controller
     {
         private readonly ILogger<MachineInfoController> _logger;
@@ -16,10 +16,18 @@ namespace MachineHealthCheck.API.Controllers
             _logger = logger;
             _machineInfoService = machineInfoService;
         }
-        [HttpGet(Name = "ListMachineInfos")]
-        public async Task<IList<MachineInfo>> ListMachineInfos()
+
+        [HttpGet("ListMachineInfos")]
+        public async Task<ActionResult<IList<MachineInfo>>> ListMachineInfos()
         {
-            return await _machineInfoService.GetAll();
+            var list = await _machineInfoService.GetAll();
+
+            if (list == null)
+            {
+                return (ActionResult<IList<MachineInfo>>)NotFound();
+            }
+
+            return (ActionResult<IList<MachineInfo>>)Ok(list);
         }
     }
 }

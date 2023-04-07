@@ -8,6 +8,7 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { RouterModule } from '@angular/router';
 import { MatTableModule } from '@angular/material/table';
+import { DataService } from './services/data-service.service';
 
 
 @NgModule({
@@ -26,7 +27,9 @@ import { MatTableModule } from '@angular/material/table';
       { path: 'home-page', component: HomePageComponent },
     ])
   ],
-  providers: [],
+  providers: [
+    DataService
+  ],
   bootstrap: [
     AppComponent,
     NavBarComponent

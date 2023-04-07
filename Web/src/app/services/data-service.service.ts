@@ -15,12 +15,13 @@ export class DataService {
     public http: HttpClient
   ) { }
 
-  public getMachines(): Observable<MachineInfo[]> {
-    return this.http.get (`${this.urlString}/MachineInfo/GetMachines`)
+  public getAllMachines(): Observable<MachineInfo[]> {
+    return this.http.get(`${this.urlString}MachineInfo/ListMachineInfos`)
       .pipe(
         map((res:any) => {
+          console.log(res);
           return res;
-        })
-      )
+      })
+    )
   }
 }
