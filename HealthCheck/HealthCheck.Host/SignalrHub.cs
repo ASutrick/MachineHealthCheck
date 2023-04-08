@@ -10,10 +10,10 @@ namespace HealthCheck.Host
     {
         public static ConcurrentDictionary<string, ClientModel> MyClients = new ConcurrentDictionary<string,ClientModel>();
         private readonly ILogger<SignalrHub> _logger;
-        private readonly IVerificationService _verificationService;
-        public SignalrHub(ILogger<SignalrHub> logger, IVerificationService verificationService)
+        private readonly IHealthCheckHubService _hubService;
+        public SignalrHub(ILogger<SignalrHub> logger, IHealthCheckHubService hubService)
         {
-            _verificationService = verificationService;
+            _hubService = hubService;
             _logger = logger;
         }
 
@@ -31,7 +31,7 @@ namespace HealthCheck.Host
         }
         public async Task VerifyKey(string key)
         {
-            bool success = await _verificationService.Verify(key);
+            bool success = await _hubService.Verify(key);
             if (!success)
             {
                 _logger.LogInformation($"A key failed verification {key}");

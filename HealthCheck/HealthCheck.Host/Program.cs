@@ -25,7 +25,7 @@ namespace HealthCheck.Host
             builder.Services.AddScoped<DbFactory>();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             // Add services to the container.
-            builder.Services.AddScoped<IVerificationService, VerificationService>();
+            builder.Services.AddScoped<IHealthCheckHubService, HealthCheckHubService>();
             //builder.Services.AddHostedService<SignalrWorkerService>();
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

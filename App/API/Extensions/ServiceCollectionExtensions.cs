@@ -8,6 +8,7 @@ using MachineHealthCheck.Domain.Interfaces;
 using MachineHealthCheck.Infrastructure;
 using MachineHealthCheck.Service;
 using MachineHealthCheck.Domain.Models;
+using MachineHealthCheck.Domain.Interfaces.Services;
 
 namespace MachineHealthCheck.API.Extensions
 {
@@ -43,7 +44,10 @@ namespace MachineHealthCheck.API.Extensions
         /// <returns></returns>
         public static IServiceCollection AddServices(this IServiceCollection services)
         {
-            return services.AddScoped<IMachineInfoService, MachineInfoService>();
+            services.AddScoped<IMachineInfoService, MachineInfoService>();
+            services.AddScoped<IWorkQueueService, WorkQueueService>();
+            return services;
+
         }
         public static IServiceCollection AddCORS(this IServiceCollection services)
         {

@@ -10,8 +10,8 @@ namespace SignalR.Host.Controllers
     {
 
         private readonly ILogger<VerificationController> _logger;
-        private readonly IVerificationService _verificationService;
-        public VerificationController(ILogger<VerificationController> logger, IVerificationService verificationService)
+        private readonly IHealthCheckHubService _verificationService;
+        public VerificationController(ILogger<VerificationController> logger, IHealthCheckHubService verificationService)
         {
             _verificationService = verificationService;
             _logger = logger;

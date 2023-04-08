@@ -2,14 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace MachineHealthCheck.Domain.Interfaces.Services
 {
-    public interface IVerificationService
+    public interface IWorkQueueService
     {
-        Task<bool> Verify(string key);
+        Task QueueWork(WorkQueue work);
+        Task<WorkQueue> DequeueWork();
     }
 }

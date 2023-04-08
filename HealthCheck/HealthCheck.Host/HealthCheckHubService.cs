@@ -6,11 +6,11 @@ using System.Reflection.PortableExecutable;
 
 namespace HealthCheck.Host
 {
-    public class VerificationService : IVerificationService
+    public class HealthCheckHubService : IHealthCheckHubService
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly ILogger<VerificationService> _logger;
-        public VerificationService(IUnitOfWork unitOfWork, ILogger<VerificationService> logger)
+        private readonly ILogger<HealthCheckHubService> _logger;
+        public HealthCheckHubService(IUnitOfWork unitOfWork, ILogger<HealthCheckHubService> logger)
         {
             _unitOfWork=unitOfWork;
             _logger=logger;
