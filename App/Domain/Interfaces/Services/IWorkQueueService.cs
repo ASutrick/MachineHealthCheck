@@ -9,7 +9,7 @@ namespace MachineHealthCheck.Domain.Interfaces.Services
 {
     public interface IWorkQueueService
     {
-        Task QueueWork(WorkQueue work);
+        Task QueueWork(string key);
         Task<WorkQueue> DequeueWork();
     }
 }

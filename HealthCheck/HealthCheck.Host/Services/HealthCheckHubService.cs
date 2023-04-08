@@ -4,7 +4,7 @@ using MachineHealthCheck.Domain.Interfaces.Services;
 using System.Linq;
 using System.Reflection.PortableExecutable;
 
-namespace HealthCheck.Host
+namespace HealthCheck.Host.Services
 {
     public class HealthCheckHubService : IHealthCheckHubService
     {
@@ -12,19 +12,19 @@ namespace HealthCheck.Host
         private readonly ILogger<HealthCheckHubService> _logger;
         public HealthCheckHubService(IUnitOfWork unitOfWork, ILogger<HealthCheckHubService> logger)
         {
-            _unitOfWork=unitOfWork;
-            _logger=logger;
+            _unitOfWork = unitOfWork;
+            _logger = logger;
         }
-        public async Task<bool> Verify(string key)
+        public async Task<bool> Verify(string key, string connId)
         {
-            
+
             IQueryable<MachineInfo>? machines = await _unitOfWork.Repository<MachineInfo>().FindByCondition(m => m.Key == key);
             MachineInfo m;
             try
             {
                 m = machines.First();
             }
-            catch(InvalidOperationException e) { return false; }
+            catch (InvalidOperationException e) { return false; }
 
             try
             {
@@ -36,7 +36,7 @@ namespace HealthCheck.Host
                     throw new KeyNotFoundException();
 
                 work.isVerified = true;
-
+                work.ConnectionId = connId;
                 await _unitOfWork.CommitTransaction();
             }
             catch (Exception e)

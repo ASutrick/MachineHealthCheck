@@ -1,26 +1,27 @@
 ﻿using MachineHealthCheck.Domain.Entities;
 using MachineHealthCheck.Domain.Interfaces;
 using MachineHealthCheck.Domain.Interfaces.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.PortableExecutable;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace MachineHealthCheck.Service
+namespace HealthCheck.Host.Services
 {
     public class WorkQueueService : IWorkQueueService
     {
         private readonly IUnitOfWork _unitOfWork;
-        public WorkQueueService(IUnitOfWork unitOfWork) 
+        private readonly ILogger<WorkQueueService> _logger;
+        public WorkQueueService(IUnitOfWork unitOfWork, ILogger<WorkQueueService> logger)
         {
-            this._unitOfWork = unitOfWork;
+            _unitOfWork = unitOfWork;
+            _logger = logger;
         }
-        public async Task<WorkQueue> DequeueWork()
+        public async Task<WorkQueue?> DequeueWork()
         {
+            WorkQueue one;
             IQueryable<WorkQueue> actives = await _unitOfWork.Repository<WorkQueue>().FindByCondition(q => q.isActive);
-            WorkQueue one = actives.OrderBy(a => a.Id).First();
+            try 
+            {
+                one = actives.OrderBy(a => a.Id).First(); 
+            }
+            catch (Exception ex) { _logger.LogInformation("No queued work found."); return null; }
             try
             {
                 await _unitOfWork.BeginTransaction();
@@ -42,21 +43,7 @@ namespace MachineHealthCheck.Service
 
         public async Task QueueWork(string key)
         {
-            MachineInfo? info;
-            IQueryable<MachineInfo> list = await _unitOfWork.Repository<MachineInfo>().FindByCondition(q => q.Key == key);
-            try
-            {
-                info = list.FirstOrDefault();
-            }
-            catch(Exception e)
-            {
-                throw new KeyNotFoundException();
-            }
-
-            WorkQueue work = new WorkQueue();
-            work.isActive = true;
-            work.ConnectionId = info.ConnectionId!;
-            await _unitOfWork.Repository<WorkQueue>().InsertAsync(work, true);
+            throw new NotImplementedException();
         }
     }
 }

@@ -37,7 +37,7 @@ namespace MachineHealthCheck.Infrastructure
 
         public async Task<IQueryable<T>> FindByCondition(Expression<Func<T, bool>> expression)
         {
-            return this.Entities.Where(expression).AsNoTracking();
+            return Entities.Where(expression).AsNoTracking();
         }
 
         public async Task DeleteRangeAsync(IEnumerable<T> entities, bool saveChanges = true)

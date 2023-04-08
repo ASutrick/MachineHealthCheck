@@ -14,7 +14,7 @@ namespace MachineHealthCheck.Domain.Entities
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public string Key { get; set; }
+        public string ConnectionId { get; set; }
         public bool isActive { get; set; }
     }
 }

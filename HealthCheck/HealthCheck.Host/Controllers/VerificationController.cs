@@ -20,7 +20,7 @@ namespace SignalR.Host.Controllers
         [HttpPut(Name = "VerifyKey")]
         public async Task<ActionResult<bool>> VerifyKey(string key)
         {
-            return await _verificationService.Verify(key);  
+            return true;  
         }
     }
 }

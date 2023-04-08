@@ -50,14 +50,14 @@ namespace MachineHealthCheck.Remote.Services
             await _connection.DisposeAsync();
         }
 
-        public Task HealthCheckRequest(string str)
+        public Task HealthCheckRequest(string date)
         {
-            Console.WriteLine("Request Recieved: Performing Health Check");
-            SystemInfoRetrievalService infoService = new SystemInfoRetrievalService();
-            HealthCheck info = infoService.GetInfo();
+            _logger.LogInformation("Request Recieved: Performing Health Check");
+            //SystemInfoRetrievalService infoService = new SystemInfoRetrievalService();
+            //HealthCheck info = infoService.GetInfo();
             //Console.WriteLine(str);
             //_connection.InvokeAsync(SignalrAPI.Events.HealthCheckResponse, info, "Jessika");
-            Console.WriteLine("sending response");
+            //Console.WriteLine("sending response");
             return Task.CompletedTask;
         }
     }

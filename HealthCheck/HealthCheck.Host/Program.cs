@@ -2,6 +2,7 @@ using MachineHealthCheck.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using MachineHealthCheck.Domain.Interfaces;
 using MachineHealthCheck.Domain.Interfaces.Services;
+using HealthCheck.Host.Services;
 
 namespace HealthCheck.Host
 {
@@ -25,6 +26,7 @@ namespace HealthCheck.Host
             builder.Services.AddScoped<DbFactory>();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             // Add services to the container.
+            builder.Services.AddScoped<IWorkQueueService, WorkQueueService>();
             builder.Services.AddScoped<IHealthCheckHubService, HealthCheckHubService>();
             //builder.Services.AddHostedService<SignalrWorkerService>();
             builder.Services.AddControllers();
@@ -32,6 +34,7 @@ namespace HealthCheck.Host
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             builder.Services.AddSignalR();
+            builder.Services.AddHostedService<WorkQueueBackgroundService>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

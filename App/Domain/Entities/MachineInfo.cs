@@ -12,6 +12,7 @@ namespace MachineHealthCheck.Domain.Entities
         public string? MachineName { get; set; }
         public string Key { get; set; } = null!;
         public bool isVerified { get; set; }
+        public string? ConnectionId { get; set; }
         public ICollection<HealthCheck> HealthChecks { get; set; } = null!;
     }
 }

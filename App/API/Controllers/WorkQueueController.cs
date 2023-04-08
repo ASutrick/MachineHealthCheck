@@ -15,11 +15,11 @@ namespace MachineHealthCheck.API.Controllers
             _workQueueService = workQueueService;
         }
         [HttpPost("Create")]
-        public async Task<ActionResult> Queue([FromBody]WorkQueueDTO work)
+        public async Task<ActionResult> Queue(string key)
         {
             try
             {
-                await _workQueueService.QueueWork(work.ToWQ());
+                await _workQueueService.QueueWork(key);
             }
             catch (Exception ex)
             {
