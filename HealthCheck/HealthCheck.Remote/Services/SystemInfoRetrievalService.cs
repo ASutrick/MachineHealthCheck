@@ -21,11 +21,9 @@ namespace MachineHealthCheck.Remote.Services
             hardwareInfo.RefreshAll();
             healthCheck.OperatingSystem = hardwareInfo.OperatingSystem.Name;
             healthCheck.OSVersion = hardwareInfo.OperatingSystem.VersionString;
-            var cpulst = new List<CPUInfo>() { GetCPUInfo() };
-            healthCheck.CPUInfo = cpulst;
+            healthCheck.CPUInfo = GetCPUInfo();
             healthCheck.MemoryInfo = GetMemoryInfo();
-            var disklst = new List<DiskInfo>() { GetDiskInfo() };
-            healthCheck.DiskInfo = disklst;
+            healthCheck.DiskInfo = GetDiskInfo();
             healthCheck.SqlInfo = GetSqlInfo();
  
             return healthCheck;
@@ -54,10 +52,10 @@ namespace MachineHealthCheck.Remote.Services
             }
             return info;
         }
-        public CPUInfo GetCPUInfo(int index = 0)
+        public List<CPUInfo> GetCPUInfo()
         {
-            CPUInfo info = new CPUInfo();
-
+            List<CPUInfo> infoList = new List<CPUInfo>();
+            CPUInfo first = new CPUInfo();
             var cpuUsage = new PerformanceCounter("Processor Information", "% Processor Utility", "_Total");
             Thread.Sleep(500);
             var firstCall = cpuUsage.NextValue();
@@ -66,16 +64,23 @@ namespace MachineHealthCheck.Remote.Services
             {
                 cpuUsage.NextValue();
                 Thread.Sleep(500);
-                if (i+1 == 5) info.PercentInUse = (int)cpuUsage.NextValue();
+                if (i+1 == 5) first.PercentInUse = (int)cpuUsage.NextValue();
             }
 
-            info.Name = hardwareInfo.CpuList[index].Name;
-            info.NumOfCores = (int)hardwareInfo.CpuList[index].NumberOfCores;
-            info.NumOfLogicalProcessors = (int)hardwareInfo.CpuList[index].NumberOfLogicalProcessors;
-            info.CurrClockSpeed = (int)hardwareInfo.CpuList[index].CurrentClockSpeed;
-            return info;
+            foreach(var cpu in hardwareInfo.CpuList)
+            {
+                CPUInfo one = new CPUInfo();
+                one.PercentInUse = first.PercentInUse;
+                one.Name = cpu.Name;
+                one.NumOfCores = (int)cpu.NumberOfCores;
+                one.NumOfLogicalProcessors = (int)cpu.NumberOfLogicalProcessors;
+                one.CurrClockSpeed = (int)cpu.CurrentClockSpeed;
+                infoList.Add(one);
+            }
+            
+            return infoList;
         }
-        public MemoryInfo GetMemoryInfo(int index = 0)
+        public MemoryInfo GetMemoryInfo()
         {
             MemoryInfo info = new MemoryInfo();
 
@@ -86,10 +91,10 @@ namespace MachineHealthCheck.Remote.Services
             return info;
 
         }
-        public DiskInfo GetDiskInfo(int index = 0)
+        public List<DiskInfo> GetDiskInfo()
         {
-            DiskInfo info = new DiskInfo();
-
+            List<DiskInfo> infoList = new List<DiskInfo>();
+            DiskInfo first = new DiskInfo();
             PerformanceCounter disk = new PerformanceCounter("PhysicalDisk", "% Disk Time", "_Total");
             Thread.Sleep(500);
             var firstCall = disk.NextValue();
@@ -98,12 +103,17 @@ namespace MachineHealthCheck.Remote.Services
             {
                 disk.NextValue();
                 Thread.Sleep(500);
-                if (i+1 == 5) info.PercentUtilization = disk.NextValue();
+                if (i+1 == 5) first.PercentUtilization = disk.NextValue();
             }
-
-            info.FreeSpaceMb = System.IO.DriveInfo.GetDrives()[0].AvailableFreeSpace / 1024 / 1024;
-            info.CapacityMb = hardwareInfo.DriveList[index].Size / 1024 / 1024;
-            return info;
+            foreach(var drive in System.IO.DriveInfo.GetDrives())
+            {
+                DiskInfo one = new DiskInfo();
+                one.PercentUtilization = first.PercentUtilization;
+                one.FreeSpaceMb = drive.AvailableFreeSpace / 1024 / 1024;
+                one.CapacityMb = (ulong)drive.TotalSize / 1024 / 1024;
+                infoList.Add(one);
+            }
+            return infoList;
         }
     }
 }

@@ -53,11 +53,11 @@ namespace MachineHealthCheck.Remote.Services
         public Task HealthCheckRequest(string date)
         {
             _logger.LogInformation("Request Recieved: Performing Health Check");
-            //SystemInfoRetrievalService infoService = new SystemInfoRetrievalService();
-            //HealthCheck info = infoService.GetInfo();
-            //Console.WriteLine(str);
-            //_connection.InvokeAsync(SignalrAPI.Events.HealthCheckResponse, info, "Jessika");
-            //Console.WriteLine("sending response");
+            SystemInfoRetrievalService infoService = new SystemInfoRetrievalService();
+            HealthCheck info = infoService.GetInfo();
+            info.Date = DateTime.Parse(date);
+            _connection.InvokeAsync(SignalrAPI.Events.HealthCheckResponse, info, _key);
+            _logger.LogInformation("Health Check Complete!");
             return Task.CompletedTask;
         }
     }
