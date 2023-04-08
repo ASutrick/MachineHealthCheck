@@ -10,6 +10,6 @@ namespace MachineHealthCheck.Domain.Interfaces.Services
 {
     public interface IVerificationService
     {
-        Task<MachineInfo> Verify(string key);
+        Task<bool> Verify(string key);
     }
 }

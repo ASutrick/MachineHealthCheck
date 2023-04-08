@@ -15,11 +15,16 @@ namespace HealthCheck.Host
             _unitOfWork=unitOfWork;
             _logger=logger;
         }
-        public async Task<MachineInfo> Verify(string key)
+        public async Task<bool> Verify(string key)
         {
-            IQueryable<MachineInfo> machines = await _unitOfWork.Repository<MachineInfo>().FindByCondition(m => m.Key == key);
-            _logger.LogInformation(key, machines.Count());
-            var m = machines.First();
+            
+            IQueryable<MachineInfo>? machines = await _unitOfWork.Repository<MachineInfo>().FindByCondition(m => m.Key == key);
+            MachineInfo m;
+            try
+            {
+                m = machines.First();
+            }
+            catch(InvalidOperationException e) { return false; }
 
             try
             {
@@ -33,14 +38,13 @@ namespace HealthCheck.Host
                 work.isVerified = true;
 
                 await _unitOfWork.CommitTransaction();
-                m = work;
             }
             catch (Exception e)
             {
                 await _unitOfWork.RollbackTransaction();
                 throw;
             }
-            return m;
+            return true;
         }
     }
 }

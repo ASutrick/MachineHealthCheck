@@ -18,10 +18,9 @@ namespace SignalR.Host.Controllers
         }
 
         [HttpPut(Name = "VerifyKey")]
-        public async Task<ActionResult<MachineInfoDTO>> VerifyKey(string key)
+        public async Task<ActionResult<bool>> VerifyKey(string key)
         {
-            var machine = MachineInfoDTO.FromMI(await _verificationService.Verify(key));
-            return machine;
+            return await _verificationService.Verify(key);  
         }
     }
 }

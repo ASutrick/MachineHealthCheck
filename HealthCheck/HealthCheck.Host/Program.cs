@@ -1,16 +1,6 @@
-using MachineHealthCheck.Infrastructure.Repositories;
 using MachineHealthCheck.Infrastructure;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using MachineHealthCheck.Domain.Interfaces;
-using MachineHealthCheck.Domain.Models;
 using MachineHealthCheck.Domain.Interfaces.Services;
 
 namespace HealthCheck.Host
