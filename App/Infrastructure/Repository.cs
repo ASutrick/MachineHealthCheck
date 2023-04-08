@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MachineHealthCheck.Domain.Interfaces;
+using System.Linq.Expressions;
+
 namespace MachineHealthCheck.Infrastructure
 {
     public class Repository<T> : IRepository<T> where T : class
@@ -37,6 +39,11 @@ namespace MachineHealthCheck.Infrastructure
             {
                 await DbContext.SaveChangesAsync();
             }
+        }
+
+        public async Task<IQueryable<T>> FindByCondition(Expression<Func<T, bool>> expression)
+        {
+            return this.Entities.Where(expression).AsNoTracking();
         }
 
         public async Task DeleteRangeAsync(IEnumerable<T> entities, bool saveChanges = true)

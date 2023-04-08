@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.SignalR;
 using System.Collections.Concurrent;
 
-namespace SignalR.Host
+namespace HealthCheck.Host
 {
     public class SignalrHub : Hub
     {
