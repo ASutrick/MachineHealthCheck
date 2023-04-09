@@ -9,10 +9,7 @@ namespace MachineHealthCheck.Domain.Interfaces
 {
     public interface IHealthCheckService
     {
-        Task<IList<HealthCheck>> GetAll(Guid machineId);
-        Task<HealthCheck> GetMostRecent(Guid machineId);
-        Task Update(HealthCheck machine);
-        Task Add(HealthCheck machine);
-        Task Delete(HealthCheck machine);
+        Task<IList<HealthCheck>> GetAll(string key);
+        Task<HealthCheck> GetMostRecent(string key);
     }
 }

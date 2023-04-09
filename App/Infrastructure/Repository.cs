@@ -35,9 +35,10 @@ namespace MachineHealthCheck.Infrastructure
             }
         }
 
-        public async Task<IQueryable<T>> FindByCondition(Expression<Func<T, bool>> expression)
+        public async Task<IQueryable<T>> FindByCondition(Expression<Func<T, bool>> expression, params Expression<Func<T, object>>[] includes)
         {
-            return Entities.Where(expression).AsNoTracking();
+            var query = Entities.Where(expression).AsNoTracking();
+            return includes.Aggregate(query, (q, path) => q.Include(path));
         }
 
         public async Task DeleteRangeAsync(IEnumerable<T> entities, bool saveChanges = true)

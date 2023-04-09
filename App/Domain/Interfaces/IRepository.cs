@@ -63,6 +63,6 @@ namespace MachineHealthCheck.Domain.Interfaces
         /// <returns></returns>
         Task DeleteRangeAsync(IEnumerable<T> entities, bool saveChanges = true);
 
-        Task<IQueryable<T>> FindByCondition(Expression<Func<T, bool>> expression);
+        Task<IQueryable<T>> FindByCondition(Expression<Func<T, bool>> expression, params Expression<Func<T, object>>[] includes);
     }
 }

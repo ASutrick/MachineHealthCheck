@@ -46,6 +46,7 @@ namespace MachineHealthCheck.API.Extensions
         {
             services.AddScoped<IMachineInfoService, MachineInfoService>();
             services.AddScoped<IWorkQueueService, WorkQueueService>();
+            services.AddScoped<IHealthCheckService, HealthCheckService>();
             return services;
 
         }
