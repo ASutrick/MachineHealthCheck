@@ -1,7 +1,6 @@
 ﻿using MachineHealthCheck.Domain.Entities;
 using MachineHealthCheck.Domain.Interfaces;
 using MachineHealthCheck.Domain.Models;
-using MachineHealthCheck.Service;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MachineHealthCheck.API.Controllers

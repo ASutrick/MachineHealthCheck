@@ -1,9 +1,4 @@
-﻿using System;
-using Microsoft.AspNetCore.Cors.Infrastructure;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using MachineHealthCheck.Domain;
+﻿using Microsoft.EntityFrameworkCore;
 using MachineHealthCheck.Domain.Interfaces;
 using MachineHealthCheck.Infrastructure;
 using MachineHealthCheck.Service;

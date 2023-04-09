@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MachineHealthCheck.Domain.Entities;
+﻿using MachineHealthCheck.Domain.Entities;
 using MachineHealthCheck.Domain.Interfaces;
-using MachineHealthCheck.Infrastructure.Migrations;
 
 namespace MachineHealthCheck.Service
 {

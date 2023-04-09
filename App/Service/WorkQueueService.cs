@@ -1,12 +1,6 @@
 ﻿using MachineHealthCheck.Domain.Entities;
 using MachineHealthCheck.Domain.Interfaces;
 using MachineHealthCheck.Domain.Interfaces.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.PortableExecutable;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MachineHealthCheck.Service
 {

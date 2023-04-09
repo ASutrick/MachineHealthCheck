@@ -1,9 +1,6 @@
-﻿using MachineHealthCheck.Domain.Entities;
-using MachineHealthCheck.Domain.Interfaces;
+﻿using MachineHealthCheck.Domain.Interfaces;
 using MachineHealthCheck.Domain.Interfaces.Services;
 using Microsoft.AspNetCore.SignalR;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System.Collections.Concurrent;
 
 namespace HealthCheck.Host
 {
