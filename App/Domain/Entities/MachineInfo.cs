@@ -9,7 +9,10 @@ namespace MachineHealthCheck.Domain.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
         public string ClientName { get; set; } = null!;
-        public string MachineName { get; set; } = null!;
+        public string? MachineName { get; set; }
+        public string Key { get; set; } = null!;
+        public bool isVerified { get; set; }
+        public string? ConnectionId { get; set; }
         public ICollection<HealthCheck> HealthChecks { get; set; } = null!;
     }
 }

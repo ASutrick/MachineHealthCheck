@@ -1,11 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MachineHealthCheck.Domain.Interfaces;
+using System.Linq.Expressions;
+
 namespace MachineHealthCheck.Infrastructure
 {
     public class Repository<T> : IRepository<T> where T : class
@@ -37,6 +33,12 @@ namespace MachineHealthCheck.Infrastructure
             {
                 await DbContext.SaveChangesAsync();
             }
+        }
+
+        public async Task<IQueryable<T>> FindByCondition(Expression<Func<T, bool>> expression, params Expression<Func<T, object>>[] includes)
+        {
+            var query = Entities.Where(expression).AsNoTracking();
+            return includes.Aggregate(query, (q, path) => q.Include(path));
         }
 
         public async Task DeleteRangeAsync(IEnumerable<T> entities, bool saveChanges = true)

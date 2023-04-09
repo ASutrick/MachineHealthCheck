@@ -1,38 +1,53 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MachineHealthCheck.Domain.Entities;
+﻿using MachineHealthCheck.Domain.Entities;
 using MachineHealthCheck.Domain.Interfaces;
 
 namespace MachineHealthCheck.Service
 {
-    internal class HealthCheckService : IHealthCheckService
+    public class HealthCheckService : IHealthCheckService
     {
-        public Task Add(HealthCheck machine)
+        private readonly IUnitOfWork _unitOfWork;
+        public HealthCheckService(IUnitOfWork unitOfWork) 
         {
-            throw new NotImplementedException();
+            _unitOfWork = unitOfWork;
+        }
+        public async Task<IList<HealthCheck>?> GetAll(string key)
+        {
+            MachineInfo m;
+            List<HealthCheck> checks = null;
+            IQueryable<MachineInfo>? machines = await _unitOfWork.Repository<MachineInfo>().FindByCondition(m => m.Key == key);
+           
+            try
+            {
+                m = machines.First();
+            }
+            catch (InvalidOperationException e) { return null; }
+            IQueryable<HealthCheck>? healthChecks = await _unitOfWork.Repository<HealthCheck>().FindByCondition(check => check.MachineInfo.Id == m.Id, check => check.CPUInfo, check => check.DiskInfo, check => check.SqlInfo, check => check.MemoryInfo);
+            try
+            {
+                checks = healthChecks.OrderByDescending(check => check.Date).ToList();
+            }
+            catch (InvalidOperationException e) { return null; }
+            return checks;
         }
 
-        public Task Delete(HealthCheck machine)
+        public async Task<HealthCheck> GetMostRecent(string key)
         {
-            throw new NotImplementedException();
-        }
+            MachineInfo m;
+            HealthCheck check = null;
+            IQueryable<MachineInfo>? machines = await _unitOfWork.Repository<MachineInfo>().FindByCondition(m => m.Key == key);
 
-        public Task<IList<HealthCheck>> GetAll(Guid machineId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<HealthCheck> GetMostRecent(Guid machineId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task Update(HealthCheck machine)
-        {
-            throw new NotImplementedException();
+            try
+            {
+                m = machines.First();
+            }
+            catch (InvalidOperationException e) { return null; }
+            IQueryable<HealthCheck>? healthChecks = await _unitOfWork.Repository<HealthCheck>().FindByCondition(check => check.MachineInfo.Id == m.Id, check => check.CPUInfo, check => check.DiskInfo, check => check.SqlInfo, check => check.MemoryInfo);
+            try
+            {
+                check = healthChecks.OrderByDescending(check => check.Date).FirstOrDefault();
+            }
+            catch (InvalidOperationException e) { return null; }
+            return check;
         }
     }
 }

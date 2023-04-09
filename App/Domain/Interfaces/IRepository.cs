@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 
 namespace MachineHealthCheck.Domain.Interfaces
@@ -61,5 +60,7 @@ namespace MachineHealthCheck.Domain.Interfaces
         /// <param name="saveChanges"></param>
         /// <returns></returns>
         Task DeleteRangeAsync(IEnumerable<T> entities, bool saveChanges = true);
+
+        Task<IQueryable<T>> FindByCondition(Expression<Func<T, bool>> expression, params Expression<Func<T, object>>[] includes);
     }
 }

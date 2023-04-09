@@ -11,5 +11,6 @@ namespace MachineHealthCheck.Infrastructure
         public DbSet<DiskInfo> DiskInfo { get; set; }
         public DbSet<MemoryInfo> MemoryInfo { get; set; }
         public DbSet<SqlInfo> SqlInfo { get; set; }
+        public DbSet<WorkQueue> WorkQueue { get; set; }
     }
 }

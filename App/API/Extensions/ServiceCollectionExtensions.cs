@@ -1,13 +1,9 @@
-﻿using System;
-using Microsoft.AspNetCore.Cors.Infrastructure;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using MachineHealthCheck.Domain;
+﻿using Microsoft.EntityFrameworkCore;
 using MachineHealthCheck.Domain.Interfaces;
 using MachineHealthCheck.Infrastructure;
 using MachineHealthCheck.Service;
 using MachineHealthCheck.Domain.Models;
+using MachineHealthCheck.Domain.Interfaces.Services;
 
 namespace MachineHealthCheck.API.Extensions
 {
@@ -43,7 +39,11 @@ namespace MachineHealthCheck.API.Extensions
         /// <returns></returns>
         public static IServiceCollection AddServices(this IServiceCollection services)
         {
-            return services.AddScoped<IMachineInfoService, MachineInfoService>();
+            services.AddScoped<IMachineInfoService, MachineInfoService>();
+            services.AddScoped<IWorkQueueService, WorkQueueService>();
+            services.AddScoped<IHealthCheckService, HealthCheckService>();
+            return services;
+
         }
         public static IServiceCollection AddCORS(this IServiceCollection services)
         {
