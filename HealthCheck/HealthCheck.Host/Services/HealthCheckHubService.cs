@@ -62,6 +62,25 @@ namespace HealthCheck.Host.Services
                 await _unitOfWork.Repository<MachineHealthCheck.Domain.Entities.HealthCheck>().InsertAsync(healthCheck, true);
             }
             catch(Exception e) { return false; }
+
+            try
+            {
+                await _unitOfWork.BeginTransaction();
+
+                var workRepos = _unitOfWork.Repository<MachineInfo>();
+                var work = await workRepos.FindAsync(m.Id);
+                if (work == null)
+                    throw new KeyNotFoundException();
+
+                work.LastChecked = healthCheck.Date;
+                await _unitOfWork.CommitTransaction();
+            }
+            catch (Exception e)
+            {
+                await _unitOfWork.RollbackTransaction();
+                return false;
+            }
+
             return true;
         }
 
