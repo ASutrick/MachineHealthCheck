@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {MatTableDataSource, MatTableModule} from '@angular/material/table'
-import { MatIcon } from '@angular/material/icon';
 import { DataService } from '../services/data-service.service';
 import { MachineInfo } from '../interfaces/MachineInfo';
 
@@ -14,6 +12,8 @@ export class HomePageComponent implements OnInit {
   public selectedMachines: MachineInfo[] = [];
   public selectedMachine: MachineInfo | undefined;
   public toggleIcon = false;
+  public displayedColumns = ["ClientName", "MachineName", "Key", "CheckServer", "Delete"];
+  public allMachineData: any = [];
   
   constructor (
     public dataService: DataService
@@ -21,6 +21,7 @@ export class HomePageComponent implements OnInit {
   
   ngOnInit(): void {
     console.log("The current Machine Data: " + this.getAllMachines());
+    this.getAllMachines();
   }
 
   toggleDarkTheme(): void {
@@ -29,9 +30,11 @@ export class HomePageComponent implements OnInit {
  }
 
  getAllMachines(): void {
-  this.dataService.getAllMachines().subscribe((res:any) => {
+  this.dataService.getAllMachines().subscribe((res) => {
+    this.allMachineData = res;
     this.selectedMachines = res;
-    console.log(this.selectedMachines);
+    console.log(res);
+    console.log(this.allMachineData);
   });
  }
 
