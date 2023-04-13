@@ -3,20 +3,20 @@
     <div class="main-container-line"><hr></div>
     <div class="table-container">
         <div class="table-container-title">Machine Health Check</div>
-        <!-- <mat-table class="table-design" #table>
-            <ng-container matColumnDef="clientName">
+        <mat-table [dataSource]="allMachineData" class ="table-design">
+            <ng-container matColumnDef="ClientName">
                 <mat-header-cell class="table-font" *matHeaderCellDef> Client Name </mat-header-cell>
-                <mat-cell class="table-font" *matCellDef="let machine">{{machine.clientName}}</mat-cell>
+                <mat-cell class="table-font" *matCellDef="let machine">{{machine.name}}</mat-cell>
             </ng-container>
-            <ng-container matColumnDef="machineName">
+            <ng-container matColumnDef="MachineName">
                 <mat-header-cell class="table-font" *matHeaderCellDef> Machine Name </mat-header-cell>
-                <mat-cell class="table-font" *matCellDef="let machine">{{machine.machineName}}</mat-cell>
+                <mat-cell class="table-font" *matCellDef="let machine">{{machine.machine}}</mat-cell>
             </ng-container>
-            <ng-container matColumnDef="dateChecked">
-                <mat-header-cell class="table-font" *matHeaderCellDef> Last Check-In </mat-header-cell>
-                <mat-cell class="table-font" *matCellDef="let machine">{{machine.dateChecked}}</mat-cell>
+            <ng-container matColumnDef="Key">
+                <mat-header-cell class="table-font" *matHeaderCellDef> Key </mat-header-cell>
+                <mat-cell class="table-font" *matCellDef="let machine">{{machine.key}}</mat-cell>
             </ng-container>
-            <ng-container matColumnDef="checkServer">
+            <ng-container matColumnDef="CheckServer">
                 <mat-header-cell class="table-font" *matHeaderCellDef> </mat-header-cell>
                 <mat-cell class="table-font" *matCellDef="let machine">
                     <button class="check-server-button" id="check-single">
@@ -26,7 +26,7 @@
                     </button>
                 </mat-cell>                
             </ng-container>
-            <ng-container matColumnDef="delete">
+            <ng-container matColumnDef="Delete">
                 <mat-header-cell class="table-font" *matHeaderCellDef> </mat-header-cell>
                 <mat-cell class="table-font" *matCellDef="let machine">
                     <button class="check-server-button" id="check-single">
@@ -38,7 +38,7 @@
             </ng-container>
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
-        </mat-table> -->
+        </mat-table>
     </div>
 </div>
 <footer>

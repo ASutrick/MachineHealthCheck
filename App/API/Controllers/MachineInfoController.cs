@@ -46,8 +46,7 @@ namespace MachineHealthCheck.API.Controllers
             catch(Exception ex)
             {
                 return BadRequest(ex.InnerException.Message);
-            }
-            
+            }           
         }
     }
 }
