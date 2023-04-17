@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../services/data-service.service';
 import { MachineInfo } from '../interfaces/MachineInfo';
+import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
+import { MachineInfoModalComponent } from '../machine-info-modal/machine-info-modal.component';
 
 @Component({
   selector: 'app-home-page',
@@ -12,11 +14,14 @@ export class HomePageComponent implements OnInit {
   public selectedMachines: MachineInfo[] = [];
   public selectedMachine: MachineInfo | undefined;
   public toggleIcon = false;
-  public displayedColumns = ["ClientName", "MachineName", "Key", "CheckServer", "Delete"];
+  public displayedColumns = ["ClientName", "MachineName", "Key", "Last Check-In", "CheckServer", "Delete"];
   public allMachineData: any = [];
+  public modalRef: MdbModalRef<MachineInfoModalComponent> | null = null;
+  public name = "";
   
   constructor (
-    public dataService: DataService
+    public dataService: DataService,
+    private modalService: MdbModalService
   ) { }
   
   ngOnInit(): void {
@@ -37,5 +42,13 @@ export class HomePageComponent implements OnInit {
     console.log(this.allMachineData);
   });
  }
+
+ openModal(data: any) {
+  this.modalRef = this.modalService.open(MachineInfoModalComponent, {
+    data: {name: data.name, machine: data.machine, lastChecked: data.lastChecked, key: data.key}
+  });
+  console.log(data.name);
+  console.log(this.selectedMachine);
+}
 
 }
