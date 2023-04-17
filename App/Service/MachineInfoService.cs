@@ -13,24 +13,43 @@ namespace MachineHealthCheck.Service
 
         public async Task Add(MachineInfo machine)
         {
+            machine.isActive = true;
             await _unitOfWork.Repository<MachineInfo>().InsertAsync(machine, true);
         }
 
         public async Task Delete(MachineInfo machine)
         {
-            await _unitOfWork.Repository<MachineInfo>().DeleteAsync(machine, true);
+            try
+            {
+                await _unitOfWork.BeginTransaction();
+
+                var workRepos = _unitOfWork.Repository<MachineInfo>();
+                var work = await workRepos.FindAsync(machine.Id);
+                if (work == null)
+                    throw new KeyNotFoundException();
+                work.isActive = false;
+                await _unitOfWork.CommitTransaction();
+            }
+            catch (Exception e)
+            {
+                await _unitOfWork.RollbackTransaction();
+                throw;
+            }
         }
 
         public async Task<IList<MachineInfo>> GetAll()
         {
             return await _unitOfWork.Repository<MachineInfo>().GetAllAsync();
         }
-
+        public async Task<IList<MachineInfo>> GetAllActive()
+        {
+            var actives = await _unitOfWork.Repository<MachineInfo>().FindByCondition(machine => machine.isActive);
+            return actives.ToList();
+        }
         public async Task<MachineInfo> GetOne(Guid machineId)
         {
             return await _unitOfWork.Repository<MachineInfo>().FindAsync(machineId);
         }
-
         public async Task Update(MachineInfo machine)
         {
             try
@@ -41,7 +60,10 @@ namespace MachineHealthCheck.Service
                 var work = await workRepos.FindAsync(machine.Id);
                 if (work == null)
                     throw new KeyNotFoundException();
-
+                work.ClientName = machine.ClientName;
+                work.MachineName = machine.MachineName;
+                work.Key = machine.Key;
+                work.isVerified = machine.isVerified;
                 await _unitOfWork.CommitTransaction();
             }
             catch (Exception e)

@@ -14,6 +14,7 @@ namespace MachineHealthCheck.Domain.Entities
         public bool isVerified { get; set; }
         public DateTime? LastChecked { get; set; }
         public string? ConnectionId { get; set; }
+        public bool isActive { get; set; }
         public ICollection<HealthCheck> HealthChecks { get; set; } = null!;
     }
 }
