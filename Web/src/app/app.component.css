@@ -1,0 +1,39 @@
+html, body {
+    margin: 0;
+    padding: 0;
+ }
+
+body {
+    height: 100vh; 
+    background-color: var(--bg-color);
+}
+
+/*This is for the modal styling...*/
+app-machine-info-modal {
+    background-color: var(--container-color) !important;
+    border-radius: 5px;
+}
+
+body {
+    --bg-color: #aeacac;
+    --btn-bg-color: rgb(71, 142, 223);;
+    --btn-bg-color-hover: rgb(50, 103, 163);
+    --container-color: whitesmoke;
+    --text-color: white;
+    --border-color: rgb(71, 142, 223);
+    --border-color-hover: whitesmoke;
+    --container-border-color: rgb(71, 142, 223);
+    --title-color: rgb(71, 142, 223);;
+}
+
+body.dark-theme {
+    --bg-color: #161616;
+    --btn-bg-color: rgb(71, 142, 223);
+    --btn-bg-color-hover: rgb(50, 103, 163);
+    --container-color: rgb(81, 81, 81);
+    --text-color: whitesmoke;
+    --border-color:  rgb(71, 142, 223);
+    --border-color-hover: whitesmoke;
+    --container-border-color: rgb(211, 211, 211);
+    --title-color:  rgb(71, 142, 223);
+}

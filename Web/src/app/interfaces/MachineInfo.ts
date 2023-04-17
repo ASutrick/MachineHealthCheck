@@ -3,5 +3,6 @@ export interface MachineInfo {
     ClientName: string;
     MachineName: string;
     Key: string;
+    LastChecked: string;
     HealthChecks: number;
 }

@@ -1,0 +1,29 @@
+<div class="modal-style">
+  <div class="modal-header">
+    <h5 class="modal-container-title" id="exampleModalLabel">Details for: {{machine}}</h5>
+  </div>
+  <div class= "modal-dialog modal-dialog-scrollable">
+    <div class="modal-body; modal-body-style">
+      <h4 class="modal-label">Basic Information:</h4>
+        <div>
+          <p>
+            <b>Client Name:</b> {{name || "NA"}}<br>
+            <b>Last Checked:</b> {{(lastChecked | date: "short") || "NA"}}<br>
+            <b>Key:</b> {{key || "NA"}}
+          </p>
+        </div>    
+      <h4 class="modal-label">CPU Data:</h4>
+        <p>CPU Data will be displayed here...</p>
+      <h4 class="modal-label">Disk Data:</h4>
+        <p>Disk Data will be displayed here...</p>
+      <h4 class="modal-label">Memory Data:</h4>
+        <p>Memory Data will be displayed here...</p>
+      <h4 class="modal-label">SQL Data:</h4>
+        <p>SQL Data will be displayed here...</p>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="modal-button">Check Machine</button>
+    <button type="button" class="modal-button" aria-label="Close" (click)="modalRef.close()">Close</button>
+  </div>
+</div>
