@@ -14,7 +14,7 @@ namespace MachineHealthCheck.Service
         {
             MachineInfo m;
             List<HealthCheck> checks = null;
-            IQueryable<MachineInfo>? machines = await _unitOfWork.Repository<MachineInfo>().FindByCondition(m => m.Key == key);
+            IQueryable<MachineInfo>? machines = await _unitOfWork.Repository<MachineInfo>().FindByCondition(m => m.Key == key && m.isActive);
            
             try
             {
@@ -34,7 +34,7 @@ namespace MachineHealthCheck.Service
         {
             MachineInfo m;
             HealthCheck check = null;
-            IQueryable<MachineInfo>? machines = await _unitOfWork.Repository<MachineInfo>().FindByCondition(m => m.Key == key);
+            IQueryable<MachineInfo>? machines = await _unitOfWork.Repository<MachineInfo>().FindByCondition(m => m.Key == key && m.isActive);
 
             try
             {

@@ -1,4 +1,5 @@
 ﻿using MachineHealthCheck.Domain.Entities;
+using MachineHealthCheck.Domain.Models;
 
 namespace MachineHealthCheck.Domain.Interfaces
 {
@@ -7,8 +8,8 @@ namespace MachineHealthCheck.Domain.Interfaces
         Task<IList<MachineInfo>> GetAll();
         Task<IList<MachineInfo>> GetAllActive();
         Task<MachineInfo> GetOne(Guid machineId);
-        Task Update(MachineInfo machine);
+        Task<MachineInfoDTO> Update(string key, MachineInfoDTO machine);
         Task Add(MachineInfo machine);
-        Task Delete(MachineInfo machine);
+        Task Delete(string key);
     }
 }

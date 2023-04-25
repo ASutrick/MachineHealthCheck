@@ -19,9 +19,18 @@ namespace HealthCheck.Host.Services
             IQueryable<WorkQueue> actives = await _unitOfWork.Repository<WorkQueue>().FindByCondition(q => q.isActive);
             try 
             {
-                one = actives.OrderBy(a => a.Id).First(); 
+                if (actives.Any())
+                {
+                    one = actives.OrderBy(a => a.Id).First();
+                }
+                else
+                {
+                    _logger.LogInformation("No queued work found.");
+                    return null;
+                }
             }
-            catch (Exception ex) { _logger.LogInformation("No queued work found."); return null; }
+            catch (Exception ex) { _logger.LogError(ex,"There was issue dequeueing work!"); return null; }
+
             try
             {
                 await _unitOfWork.BeginTransaction();
