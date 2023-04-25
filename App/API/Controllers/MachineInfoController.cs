@@ -35,8 +35,6 @@ namespace MachineHealthCheck.API.Controllers
             return (ActionResult<IList<MachineInfoDTO>>)Ok(returns);
         }
 
-        [HttpGet("L")]
-
         [HttpPost("Create")]
         public async Task<ActionResult> CreateMachineInfo([FromBody]MachineInfoDTO m)
         {
