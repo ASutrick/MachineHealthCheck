@@ -4,7 +4,7 @@
   </div>
   <div class= "modal-dialog modal-dialog-scrollable">
     <div class="modal-body; modal-body-style">
-      <h4 class="modal-label">Basic Information:</h4>
+      <h4 class="modal-label">Summary:</h4>
         <div>
           <p>
             <b>Client Name:</b> {{name || "NA"}}<br>
@@ -13,17 +13,34 @@
           </p>
         </div>    
       <h4 class="modal-label">CPU Data:</h4>
-        <p>CPU Data will be displayed here...</p>
+        <div *ngFor="let cpu of recentMachineData.cpuInfo">
+          <b>Name:</b> {{cpu.name}}<br>
+          <b>Number of Cores:</b> {{cpu.numOfCores}}<br>
+          <b>Number of Logical Processors:</b> {{cpu.numOfLogicalProcessors}}<br>
+          <b>Percent in Use:</b> {{cpu.percentInUse}}%
+        </div>
+      <br>
       <h4 class="modal-label">Disk Data:</h4>
-        <p>Disk Data will be displayed here...</p>
+        <div *ngFor="let disk of recentMachineData.diskInfo">
+            <b>Capacity:</b> {{disk.capacityMb}}MB<br>
+            <b>Free Space:</b> {{disk.freeSpaceMb}}MB<br>
+            <b>Percent Utilized:</b> {{disk.percentUtilization}}%
+        </div>
+      <br>
       <h4 class="modal-label">Memory Data:</h4>
-        <p>Memory Data will be displayed here...</p>
+        <div>
+          <b>Percent in Use:</b> {{recentMachineData.memoryInfo?.percentInUse}}%<br>
+          <b>Total MB:</b> {{recentMachineData.memoryInfo?.totalPhysicalMb}}MB
+        </div>
+      <br>
       <h4 class="modal-label">SQL Data:</h4>
-        <p>SQL Data will be displayed here...</p>
+        <b>Has SQL Server:</b> {{recentMachineData.sqlInfo?.hasSqlServer}}<br>
+        <b>SQL Server Version:</b> {{recentMachineData.sqlInfo?.sqlServerVersion}}
     </div>
   </div>
   <div class="modal-footer">
-    <button type="button" class="modal-button">Check Machine</button>
+    <button type="button" class="modal-button" (click)="startMachineHealthCheck()">Check Machine</button>
+    <button type="button" class="modal-button" (click)="getRecentMachine(key)">Refresh</button>
     <button type="button" class="modal-button" aria-label="Close" (click)="modalRef.close()">Close</button>
   </div>
 </div>
