@@ -38,11 +38,12 @@ export class DataService {
     )
   }
 
-  public startWorkQueue(key: string): Observable<any> {
-    const params = new HttpParams()
-    .set ('key', key);
+  public startWorkQueue(key: string) {
+    // const params = new HttpParams()
+    // .set ('key', key);
+    //const body = "2224Y2K";
 
-    return this.http.post(`${this.urlString}WorkQueue/Create?key=`, {'params':params})
+    return this.http.post(`${this.urlString}WorkQueue/Create?key=` + key, null)
       .pipe(
         map((res:any) => {
           console.log(res);

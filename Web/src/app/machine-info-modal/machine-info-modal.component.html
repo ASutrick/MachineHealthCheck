@@ -8,7 +8,7 @@
         <div>
           <p>
             <b>Client Name:</b> {{name || "NA"}}<br>
-            <b>Last Checked:</b> {{(lastChecked | date: "short") || "NA"}}<br>
+            <b>Last Checked:</b> {{(recentMachineData.date | date: "short") || "NA"}}<br>
             <b>Key:</b> {{key || "NA"}}
           </p>
         </div>    
@@ -39,8 +39,8 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button type="button" class="modal-button" (click)="startMachineHealthCheck()">Check Machine</button>
+    <button type="button" class="modal-button" (click)="startMachineHealthCheck(key)">Check Machine</button>
     <button type="button" class="modal-button" (click)="getRecentMachine(key)">Refresh</button>
-    <button type="button" class="modal-button" aria-label="Close" (click)="modalRef.close()">Close</button>
+    <button type="button" class="modal-button" aria-label="Close" (click)="closeModal()">Close</button>
   </div>
 </div>

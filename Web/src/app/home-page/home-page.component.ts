@@ -37,7 +37,6 @@ export class HomePageComponent implements OnInit {
  getAllMachines(): void {
   this.dataService.getAllMachines().subscribe((res) => {
     this.selectedMachines = res;
-    //this.selectedMachines = res;
     this.changeDetectorRefs.markForCheck();
     console.log(this.selectedMachines);
   });
@@ -47,9 +46,12 @@ export class HomePageComponent implements OnInit {
   this.modalRef = this.modalService.open(MachineInfoModalComponent, {
     data: {name: data.name, machine: data.machine, lastChecked: data.lastChecked, key: data.key}
   });
-  console.log(data.name);
-  console.log(data.lastChecked);
-  console.log(this.selectedMachine);
-}
+  this.modalRef.onClose.subscribe(() => {
+    this.getAllMachines();
+  });
+    console.log(data.name);
+    console.log(data.lastChecked);
+    console.log(this.selectedMachine);
+  }
 
 }

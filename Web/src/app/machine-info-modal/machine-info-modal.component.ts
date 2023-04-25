@@ -1,10 +1,8 @@
-import { Component, Inject, Input } from '@angular/core';
-import { MdbModalRef } from 'mdb-angular-ui-kit/modal';
-import { MachineInfo } from '../interfaces/MachineInfo';
-import {MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import { ChangeDetectorRef, Component, Inject, Input } from '@angular/core';
+import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { HealthCheckInfo } from '../interfaces/HealthCheckInfo';
 import { DataService } from '../services/data-service.service';
+import { MachineInfo } from '../interfaces/MachineInfo';
 
 @Component({
   selector: 'app-machine-info-modal',
@@ -20,9 +18,12 @@ export class MachineInfoModalComponent {
   public selectedKey: string = "";
   public recentMachine!: HealthCheckInfo;
   public recentMachineData: any = [];
+  public selectedMachines: MachineInfo[] = [];
   
   constructor(
     public dataService: DataService,
+    private modalService: MdbModalService,
+    public changeDetectorRefs: ChangeDetectorRef,
     public modalRef: MdbModalRef<MachineInfoModalComponent>
   ) {}
 
@@ -39,10 +40,22 @@ export class MachineInfoModalComponent {
     })
   }
 
-  startMachineHealthCheck(): void {
-    this.dataService.startWorkQueue(this.key).subscribe((res) => {
+  getAllMachines(): void {
+    this.dataService.getAllMachines().subscribe((res) => {
+      this.selectedMachines = res;
+      this.changeDetectorRefs.markForCheck();
+      console.log(this.selectedMachines);
+    });
+   }
+
+  startMachineHealthCheck(key: string): void {
+    this.dataService.startWorkQueue(key).subscribe((res) => {
       this.selectedKey = res;
       console.log(this.selectedKey);
     })
+  }
+
+  closeModal(): void {
+    this.modalRef.close();
   }
 }
