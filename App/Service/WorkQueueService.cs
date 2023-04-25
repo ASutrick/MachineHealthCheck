@@ -37,7 +37,7 @@ namespace MachineHealthCheck.Service
         public async Task QueueWork(string key)
         {
             MachineInfo? info;
-            IQueryable<MachineInfo> list = await _unitOfWork.Repository<MachineInfo>().FindByCondition(q => q.Key == key);
+            IQueryable<MachineInfo> list = await _unitOfWork.Repository<MachineInfo>().FindByCondition(q => q.Key == key && q.isActive);
             try
             {
                 info = list.FirstOrDefault();
@@ -46,11 +46,13 @@ namespace MachineHealthCheck.Service
             {
                 throw new KeyNotFoundException();
             }
-
-            WorkQueue work = new WorkQueue();
-            work.isActive = true;
-            work.ConnectionId = info.ConnectionId!;
-            await _unitOfWork.Repository<WorkQueue>().InsertAsync(work, true);
+            if (info != null)
+            {
+                WorkQueue work = new WorkQueue();
+                work.isActive = true;
+                work.ConnectionId = info.ConnectionId!;
+                await _unitOfWork.Repository<WorkQueue>().InsertAsync(work, true);
+            }
         }
     }
 }

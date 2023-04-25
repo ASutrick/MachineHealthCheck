@@ -1,4 +1,5 @@
-﻿using MachineHealthCheck.Domain.Interfaces;
+﻿using MachineHealthCheck.Domain.Entities;
+using MachineHealthCheck.Domain.Interfaces;
 using MachineHealthCheck.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,7 +22,7 @@ namespace MachineHealthCheck.API.Controllers
         public async Task<ActionResult<IList<MachineInfoDTO>>> ListMachineInfos()
         {
             List<MachineInfoDTO> returns = new List<MachineInfoDTO>();
-            var list = await _machineInfoService.GetAll();
+            var list = await _machineInfoService.GetAllActive();
 
             if (list == null)
             {
@@ -50,6 +51,40 @@ namespace MachineHealthCheck.API.Controllers
             {
                 return BadRequest(ex.InnerException.Message);
             }           
+        }
+        [HttpDelete("Delete")]
+        public async Task<ActionResult> DeleteMachineInfo(string key)
+        {
+            try
+            {
+                await _machineInfoService.Delete(key);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.InnerException.Message);
+            }
+        }
+        [HttpPut("Update")]
+        public async Task<ActionResult<MachineInfoDTO>> UpdateMachineInfo(string key,[FromBody] MachineInfoDTO m)
+        {
+            try
+            {
+                MachineInfoDTO? updated = await _machineInfoService.Update(key,m);
+                if(updated != null)
+                {
+                    return (ActionResult<MachineInfoDTO>)Ok(updated);
+                }
+                else
+                {
+                    return BadRequest();
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.InnerException.Message);
+            }
         }
     }
 }
