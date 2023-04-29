@@ -39,11 +39,17 @@ export class DataService {
   }
 
   public startWorkQueue(key: string) {
-    // const params = new HttpParams()
-    // .set ('key', key);
-    //const body = "2224Y2K";
-
     return this.http.post(`${this.urlString}WorkQueue/Create?key=` + key, null)
+      .pipe(
+        map((res:any) => {
+          console.log(res);
+          return res;
+      })
+    )
+  }
+
+  public createNewMachine(model: MachineInfo): Observable<MachineInfo> {
+    return this.http.post<any>(`${this.urlString}MachineInfo/Create`, model)
       .pipe(
         map((res:any) => {
           console.log(res);

@@ -1,47 +1,54 @@
 <nav-bar></nav-bar>
 <div class="main-container">
     <div class="table-container">
-        <div class="table-container-title">Machine Health Check</div>
-        <mat-table [dataSource]="selectedMachines" class ="table-design">
-            <ng-container matColumnDef="ClientName">
-                <mat-header-cell class="table-font" id="header" *matHeaderCellDef> Client Name </mat-header-cell>
-                <mat-cell class="table-font" id="cell" *matCellDef="let machine">{{machine.name || "NA"}}</mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="MachineName">
-                <mat-header-cell class="table-font" id="header" *matHeaderCellDef> Machine Name </mat-header-cell>
-                <mat-cell class="table-font" id="cell" *matCellDef="let machine">{{machine.machine || "NA"}}</mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="Key">
-                <mat-header-cell class="table-font" id="header" *matHeaderCellDef> Key </mat-header-cell>
-                <mat-cell class="table-font" id="cell" *matCellDef="let machine">{{machine.key || "NA"}}</mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="Last Check-In">
-                <mat-header-cell class="table-font" id="header" *matHeaderCellDef> Last Check-In </mat-header-cell>
-                <mat-cell class="table-font" id="cell" *matCellDef="let machine">{{(machine.lastChecked | date: "short") || "NA"}}</mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="CheckServer">
-                <mat-header-cell class="table-font" *matHeaderCellDef> </mat-header-cell>
-                <mat-cell class="table-font" *matCellDef="let machine">
-                    <button class="check-server-button" id="check-server" (click)="openModal(machine)">
-                        <div class="button-text">
-                            Check Details
-                        </div>
-                    </button>
-                </mat-cell>                
-            </ng-container>
-            <ng-container matColumnDef="Delete">
-                <mat-header-cell class="table-font" *matHeaderCellDef> </mat-header-cell>
-                <mat-cell class="table-font" *matCellDef="let machine">
-                    <button class="check-server-button" id="delete">
-                        <div class="button-text">
-                            Delete
-                        </div>
-                    </button>
-                </mat-cell>                
-            </ng-container>
-            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
-        </mat-table>
+        <div class="table-container-title">
+            Machine Health Check
+        </div>
+        <button class="create-button" (click)="openCreateMachineModal()">
+            Create Machine
+        </button>
+        <div class="table-contents">
+            <mat-table [dataSource]="selectedMachines" class ="table-design">
+                <ng-container matColumnDef="ClientName">
+                    <mat-header-cell class="table-font" id="header" *matHeaderCellDef> Client Name </mat-header-cell>
+                    <mat-cell class="table-font" id="cell" *matCellDef="let machine">{{machine.name || "NA"}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="MachineName">
+                    <mat-header-cell class="table-font" id="header" *matHeaderCellDef> Machine Name </mat-header-cell>
+                    <mat-cell class="table-font" id="cell" *matCellDef="let machine">{{machine.machine || "NA"}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="Key">
+                    <mat-header-cell class="table-font" id="header" *matHeaderCellDef> Key </mat-header-cell>
+                    <mat-cell class="table-font" id="cell" *matCellDef="let machine">{{machine.key || "NA"}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="Last Check-In">
+                    <mat-header-cell class="table-font" id="header" *matHeaderCellDef> Last Check-In </mat-header-cell>
+                    <mat-cell class="table-font" id="cell" *matCellDef="let machine">{{(machine.lastChecked | date: "short") || "NA"}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="CheckServer">
+                    <mat-header-cell class="table-font" *matHeaderCellDef> </mat-header-cell>
+                    <mat-cell class="table-font" *matCellDef="let machine">
+                        <button class="button" id="check-server" (click)="openCheckServerModal(machine)">
+                            <div class="button-text">
+                                Check Details
+                            </div>
+                        </button>
+                    </mat-cell>                
+                </ng-container>
+                <ng-container matColumnDef="Delete">
+                    <mat-header-cell class="table-font" *matHeaderCellDef> </mat-header-cell>
+                    <mat-cell class="table-font" *matCellDef="let machine">
+                        <button class="button" id="delete">
+                            <div class="button-text">
+                                Delete
+                            </div>
+                        </button>
+                    </mat-cell>                
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+            </mat-table>
+        </div>
     </div>
 </div>
 <footer>

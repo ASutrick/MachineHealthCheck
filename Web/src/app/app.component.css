@@ -14,6 +14,11 @@ app-machine-info-modal {
     border-radius: 5px;
 }
 
+app-create-machine-modal {
+    background-color: var(--container-color) !important;
+    border-radius: 5px;
+}
+
 body {
     --bg-color: #aeacac;
     --btn-bg-color: rgb(71, 142, 223);;
