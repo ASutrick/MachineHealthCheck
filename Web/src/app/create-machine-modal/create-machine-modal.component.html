@@ -1,0 +1,21 @@
+<div class="modal-style">
+    <div class="modal-header">
+      <h5 class="modal-container-title" id="exampleModalLabel">Create a new Machine:</h5>
+    </div>
+      <div class="modal-body; modal-body-style">
+          <form [formGroup]="newMachineForm">
+            <label for="name"><b>Client Name:</b></label>
+            <input id="name" type="text" placeholder="Enter the customer's name" formControlName="name"> 
+
+            <label for="machine"><b>Machine Name:</b></label>
+            <input id="machine" type="text" placeholder="Enter the machine's name" formControlName="machine">
+
+            <label for="key"><b>Key:</b></label>
+            <input id="key" type="text" placeholder="Enter a key" formControlName="key">   
+          </form>
+      </div>
+    <div class="modal-footer">
+        <button type="button" class="modal-button" id="save" (click)="submitNewMachine()">Create Machine</button> 
+        <button type="button" class="modal-button" aria-label="Close" (click)="modalRef.close()">Cancel</button>
+    </div>
+</div>

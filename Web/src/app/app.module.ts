@@ -15,6 +15,8 @@ import { MatTableModule } from '@angular/material/table';
 import { DataService } from './services/data-service.service';
 import { DatePipe } from '@angular/common';
 import { MachineInfoModalComponent } from './machine-info-modal/machine-info-modal.component';
+import { CreateMachineModalComponent } from './create-machine-modal/create-machine-modal.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -22,9 +24,12 @@ import { MachineInfoModalComponent } from './machine-info-modal/machine-info-mod
     AppComponent,
     HomePageComponent,
     NavBarComponent,
-    MachineInfoModalComponent
+    MachineInfoModalComponent,
+    CreateMachineModalComponent
   ],
   imports: [
+    FormsModule,
+    ReactiveFormsModule,
     BrowserModule, 
     HttpClientModule,
     MdbModalModule,

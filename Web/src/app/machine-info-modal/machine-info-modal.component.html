@@ -22,15 +22,15 @@
       <br>
       <h4 class="modal-label">Disk Data:</h4>
         <div *ngFor="let disk of recentMachineData.diskInfo">
-            <b>Capacity:</b> {{disk.capacityMb}}MB<br>
-            <b>Free Space:</b> {{disk.freeSpaceMb}}MB<br>
+            <b>Capacity:</b> {{disk.capacityMb}} MB<br>
+            <b>Free Space:</b> {{disk.freeSpaceMb}} MB<br>
             <b>Percent Utilized:</b> {{disk.percentUtilization}}%
         </div>
       <br>
       <h4 class="modal-label">Memory Data:</h4>
         <div>
           <b>Percent in Use:</b> {{recentMachineData.memoryInfo?.percentInUse}}%<br>
-          <b>Total MB:</b> {{recentMachineData.memoryInfo?.totalPhysicalMb}}MB
+          <b>Total MB:</b> {{recentMachineData.memoryInfo?.totalPhysicalMb}} MB
         </div>
       <br>
       <h4 class="modal-label">SQL Data:</h4>

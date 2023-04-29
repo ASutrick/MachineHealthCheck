@@ -3,6 +3,7 @@ import { DataService } from '../services/data-service.service';
 import { MachineInfo } from '../interfaces/MachineInfo';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { MachineInfoModalComponent } from '../machine-info-modal/machine-info-modal.component';
+import { CreateMachineModalComponent } from '../create-machine-modal/create-machine-modal.component';
 
 @Component({
   selector: 'app-home-page',
@@ -17,6 +18,7 @@ export class HomePageComponent implements OnInit {
   public displayedColumns = ["ClientName", "MachineName", "Key", "Last Check-In", "CheckServer", "Delete"];
   public allMachineData: any[] = [];
   public modalRef: MdbModalRef<MachineInfoModalComponent> | null = null;
+  public createModalRef: MdbModalRef<CreateMachineModalComponent> | null = null;
   public name = "";
   
   constructor (
@@ -42,7 +44,7 @@ export class HomePageComponent implements OnInit {
   });
  }
 
- openModal(data: any) {
+ openCheckServerModal(data: any) {
   this.modalRef = this.modalService.open(MachineInfoModalComponent, {
     data: {name: data.name, machine: data.machine, lastChecked: data.lastChecked, key: data.key}
   });
@@ -54,4 +56,11 @@ export class HomePageComponent implements OnInit {
     console.log(this.selectedMachine);
   }
 
+  openCreateMachineModal () {
+    this.modalRef = this.modalService.open(CreateMachineModalComponent);
+    this.modalRef.onClose.subscribe((newMachine: any) => {
+      console.log(newMachine);
+      this.getAllMachines();
+    });
+  }
 }

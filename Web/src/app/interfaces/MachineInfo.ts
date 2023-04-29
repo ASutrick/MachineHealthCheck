@@ -1,8 +1,9 @@
 export interface MachineInfo {
     Id: string;
-    ClientName: string;
-    MachineName: string;
+    Name: string;
+    Machine: string;
     Key: string;
-    LastChecked: string;
+    LastChecked?: Date;
     HealthChecks: number;
+    IsVerified: boolean;
 }

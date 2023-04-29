@@ -49,7 +49,7 @@ footer {
     border-width: 2rem;
 }
 
-.check-server-button {
+.button {
     background-color: var(--btn-bg-color);
     height: 30px;
     margin: 0;
@@ -64,7 +64,22 @@ footer {
     transition: background-color 1s, color 1s;
 }
 
-.check-server-button:hover {
+.create-button {
+    margin-top: 20px;
+    background-color: var(--btn-bg-color);
+    font-size: 15px;
+    height: 30px;
+    margin-left: 1.3rem;
+    border-radius: 50px;
+    border-color: var(--border-color);
+    border-style: double;
+    color: var(--text-color);
+    font-weight: bold;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    transition: background-color 1s, color 1s;
+}
+
+.button:hover, .create-button:hover {
     background-color: var(--btn-bg-color-hover);
     color: var(--text-color);
 }
@@ -84,7 +99,8 @@ footer {
 /* Creating a section for the table*/
 .table-container {
     width: 1000px;
-    height: 600px;
+    height: 700px;
+    overflow: auto;
     position: fixed;
     top: 50%;
     left: 50%;
@@ -96,9 +112,24 @@ footer {
     border-radius: 5%;
 }
 
+.table-contents {
+    height: 80vh;
+}
+
+.table-container::-webkit-scrollbar {
+    display: none;
+}
+
 mat-cell {
     display: grid;
     margin: 0;
+}
+
+img {
+    max-width: 100px;
+    height: auto;
+    margin: 10px;
+    margin-top: 5px;
 }
 
 .table-container-title {
@@ -106,13 +137,12 @@ mat-cell {
     font-size: 40px;
     font-weight: bolder;
     color: var(--title-color);
-    padding-top: 2.5rem;
+    margin-top: 5rem;
     text-align: center;
 }
 
 .table-design {
     background-color: var(--container-color);
-    padding-top: 2rem;
     font-size: 14px;
 }
 
@@ -129,7 +159,7 @@ mat-cell {
 }
 
 #cell {
-    font-size: 13px;
+    font-size: 13.5px;
     vertical-align: middle;
     padding-bottom: 5px;
 }
