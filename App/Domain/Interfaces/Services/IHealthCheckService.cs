@@ -6,5 +6,6 @@ namespace MachineHealthCheck.Domain.Interfaces
     {
         Task<IList<HealthCheck>> GetAll(string key);
         Task<HealthCheck> GetMostRecent(string key);
+        Task<HealthCheck> WaitForNext(string key);
     }
 }
