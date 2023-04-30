@@ -51,10 +51,9 @@ namespace MachineHealthCheck.API.Extensions
                 services.AddCors(options => {
                     options.AddPolicy("CorsPolicy",
                         builder => {
-                            builder.WithOrigins(AppSettings.CORS)
+                            builder.AllowAnyOrigin()
                                 .AllowAnyMethod()
-                                .AllowAnyHeader()
-                                .AllowCredentials();
+                                .AllowAnyHeader();
                         });
                 });
         }
