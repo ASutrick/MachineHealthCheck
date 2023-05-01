@@ -17,6 +17,8 @@ import { DatePipe } from '@angular/common';
 import { MachineInfoModalComponent } from './machine-info-modal/machine-info-modal.component';
 import { CreateMachineModalComponent } from './create-machine-modal/create-machine-modal.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -28,6 +30,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CreateMachineModalComponent
   ],
   imports: [
+    BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
     BrowserModule, 
@@ -35,6 +38,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MdbModalModule,
     MatTableModule, 
     MatIconModule,
+    ToastrModule.forRoot(),
     RouterModule.forRoot([
       { path: '', pathMatch: 'full', redirectTo: 'home-page' },
       { path: 'home-page', component: HomePageComponent },

@@ -38,7 +38,7 @@
                 <ng-container matColumnDef="Delete">
                     <mat-header-cell class="table-font" *matHeaderCellDef> </mat-header-cell>
                     <mat-cell class="table-font" *matCellDef="let machine">
-                        <button class="button" id="delete">
+                        <button class="button" id="delete" (click)="deleteSelectedMachine(machine.key, machine.machine)">
                             <div class="button-text">
                                 Delete
                             </div>

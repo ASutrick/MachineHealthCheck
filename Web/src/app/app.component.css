@@ -20,25 +20,34 @@ app-create-machine-modal {
 }
 
 body {
-    --bg-color: #aeacac;
-    --btn-bg-color: rgb(71, 142, 223);;
-    --btn-bg-color-hover: rgb(50, 103, 163);
-    --container-color: whitesmoke;
+    --bg-color: #ffdcd9; 
+    --btn-bg-color: #a0d1c3;
+    --btn-bg-color-hover: #f87f8e;
+    --container-color: #f1ece6;
     --text-color: white;
-    --border-color: rgb(71, 142, 223);
+    --border-color: #5fa796;
     --border-color-hover: whitesmoke;
-    --container-border-color: rgb(71, 142, 223);
-    --title-color: rgb(71, 142, 223);;
+    --container-border-color: #5fa796;
+    --title-color: #5fa796;
 }
 
 body.dark-theme {
-    --bg-color: #161616;
-    --btn-bg-color: rgb(71, 142, 223);
-    --btn-bg-color-hover: rgb(50, 103, 163);
-    --container-color: rgb(81, 81, 81);
+    --bg-color: #542e30;
+    --btn-bg-color: #75978e;
+    --btn-bg-color-hover: #bd616c;
+    --container-color: #c1bbb6;
     --text-color: whitesmoke;
-    --border-color:  rgb(71, 142, 223);
+    --border-color:  #3c695f;
     --border-color-hover: whitesmoke;
-    --container-border-color: rgb(211, 211, 211);
-    --title-color:  rgb(71, 142, 223);
+    --container-border-color: #44776b;
+    --title-color:  #44776b;
+}
+
+/*Toastr Notifications*/
+#toast-container> .toast-success {
+    background-image: url("/assets/images/Computer.png");
+    background-color: var(--btn-bg-color-hover) !important;
+    color: var(--text-color);
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    width: 400px;
 }
