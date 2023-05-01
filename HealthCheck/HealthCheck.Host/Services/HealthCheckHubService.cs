@@ -25,7 +25,11 @@ namespace HealthCheck.Host.Services
             {
                 m = machines.First();
             }
-            catch (InvalidOperationException e) { return false; }
+            catch (InvalidOperationException e) 
+            {
+                _logger.LogError(e.Message);
+                return false; 
+            }
 
             try
             {
@@ -42,6 +46,7 @@ namespace HealthCheck.Host.Services
             }
             catch (Exception e)
             {
+                _logger.LogError(e.Message);
                 await _unitOfWork.RollbackTransaction();
                 throw;
             }
@@ -55,13 +60,21 @@ namespace HealthCheck.Host.Services
             {
                 m = machines.First();
             }
-            catch (InvalidOperationException e) { return false; }
+            catch (InvalidOperationException e) 
+            {
+                _logger.LogError(e.Message);
+                return false; 
+            }
             healthCheck.MachineInfoId = m.Id;
             try
             {
                 await _unitOfWork.Repository<MachineHealthCheck.Domain.Entities.HealthCheck>().InsertAsync(healthCheck, true);
             }
-            catch(Exception e) { return false; }
+            catch(Exception e) 
+            {
+                _logger.LogError(e.Message);
+                return false; 
+            }
 
             try
             {
@@ -77,6 +90,7 @@ namespace HealthCheck.Host.Services
             }
             catch (Exception e)
             {
+                _logger.LogError(e.Message);
                 await _unitOfWork.RollbackTransaction();
                 return false;
             }
@@ -93,7 +107,11 @@ namespace HealthCheck.Host.Services
             {
                 m = machines.First();
             }
-            catch (InvalidOperationException e) { return false; }
+            catch (InvalidOperationException e) 
+            {
+                _logger.LogError(e.Message);
+                return false; 
+            }
 
             try
             {
@@ -110,6 +128,7 @@ namespace HealthCheck.Host.Services
             }
             catch (Exception e)
             {
+                _logger.LogError(e.Message);
                 await _unitOfWork.RollbackTransaction();
                 throw;
             }

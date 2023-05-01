@@ -3,6 +3,7 @@ using MachineHealthCheck.Domain.Interfaces;
 using MachineHealthCheck.Domain.Models;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.Extensions.Logging;
 using System.Reflection.PortableExecutable;
 
 namespace MachineHealthCheck.Service
@@ -10,9 +11,11 @@ namespace MachineHealthCheck.Service
     public class MachineInfoService : IMachineInfoService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly ILogger<MachineInfoService> _logger;
 
-        public MachineInfoService(IUnitOfWork unitOfWork)
+        public MachineInfoService(IUnitOfWork unitOfWork, ILogger<MachineInfoService> logger)
         {
+            _logger = logger;
             _unitOfWork = unitOfWork;
         }
 
@@ -26,6 +29,7 @@ namespace MachineHealthCheck.Service
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex.Message);
                 return;
             }
             if (m == null) 
@@ -46,6 +50,7 @@ namespace MachineHealthCheck.Service
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex.Message);
                 return true;
             }
             if (m == null)
@@ -65,7 +70,7 @@ namespace MachineHealthCheck.Service
             }
             catch (Exception ex)
             {
-                
+                _logger.LogError(ex.Message);
                 return;
             }
             try
@@ -81,6 +86,7 @@ namespace MachineHealthCheck.Service
             }
             catch (Exception e)
             {
+                _logger.LogError(e.Message);
                 await _unitOfWork.RollbackTransaction();
                 throw;
             }
@@ -99,7 +105,7 @@ namespace MachineHealthCheck.Service
         {
             return await _unitOfWork.Repository<MachineInfo>().FindAsync(machineId);
         }
-        public async Task<MachineInfoDTO> Update(string key ,MachineInfoDTO machine)
+        public async Task<MachineInfoDTO?> Update(string key ,MachineInfoDTO machine)
         {
             MachineInfo m;
             IQueryable<MachineInfo> info = await _unitOfWork.Repository<MachineInfo>().FindByCondition(m => m.Key == key);
@@ -109,7 +115,7 @@ namespace MachineHealthCheck.Service
             }
             catch (Exception ex)
             {
-
+                _logger.LogError(ex.Message);
                 return null;
             }
             try
@@ -132,6 +138,7 @@ namespace MachineHealthCheck.Service
             }
             catch (Exception e)
             {
+                _logger.LogError(e.Message);
                 await _unitOfWork.RollbackTransaction();
                 throw;
             }

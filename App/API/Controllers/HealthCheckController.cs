@@ -19,32 +19,48 @@ namespace MachineHealthCheck.API.Controllers
         [HttpGet("List")]
         public async Task<ActionResult<IList<HealthCheckDTO>>> List(string key)
         {
-            IList<HealthCheckDTO> returns = new List<HealthCheckDTO>();
-            IList<HealthCheck> entites = new List<HealthCheck>();
-            entites = await _healthCheckService.GetAll(key);
-
-            if (entites == null)
+            try
             {
-                return (ActionResult<IList<HealthCheckDTO>>)NotFound();
-            }
-            foreach (var e in entites)
-            {
-                returns.Add(HealthCheckDTO.FromEntity(e));
-            }
+                IList<HealthCheckDTO> returns = new List<HealthCheckDTO>();
+                IList<HealthCheck> entites = new List<HealthCheck>();
+                entites = await _healthCheckService.GetAll(key);
 
-            return (ActionResult<IList<HealthCheckDTO>>)Ok(returns);
+                if (entites == null)
+                {
+                    return (ActionResult<IList<HealthCheckDTO>>)NotFound();
+                }
+                foreach (var e in entites)
+                {
+                    returns.Add(HealthCheckDTO.FromEntity(e));
+                }
+
+                return (ActionResult<IList<HealthCheckDTO>>)Ok(returns);
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return BadRequest(ex.Message);
+            }
         }
         [HttpGet("MostRecent")]
         public async Task<ActionResult<IList<HealthCheckDTO>>> MostRecent(string key)
         {
-            var one = await _healthCheckService.GetMostRecent(key);
-
-            if (one == null)
+            try
             {
-                return (ActionResult<IList<HealthCheckDTO>>)NotFound();
-            }
+                var one = await _healthCheckService.GetMostRecent(key);
 
-            return (ActionResult<IList<HealthCheckDTO>>)Ok(HealthCheckDTO.FromEntity(one));
+                if (one == null)
+                {
+                    return (ActionResult<IList<HealthCheckDTO>>)NotFound();
+                }
+
+                return (ActionResult<IList<HealthCheckDTO>>)Ok(HealthCheckDTO.FromEntity(one));
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

@@ -4,8 +4,8 @@ namespace MachineHealthCheck.Domain.Interfaces
 {
     public interface IHealthCheckService
     {
-        Task<IList<HealthCheck>> GetAll(string key);
-        Task<HealthCheck> GetMostRecent(string key);
-        Task<HealthCheck> WaitForNext(string key);
+        Task<IList<HealthCheck>?> GetAll(string key);
+        Task<HealthCheck?> GetMostRecent(string key);
+        Task<HealthCheck?> WaitForNext(string key);
     }
 }

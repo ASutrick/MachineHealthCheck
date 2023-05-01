@@ -10,12 +10,14 @@ namespace MachineHealthCheck.API.Controllers
     [Route("api/[controller]")]
     public class WorkQueueController : Controller
     {
-        IWorkQueueService _workQueueService;
-        IHealthCheckService _healthCheckService;
-        public WorkQueueController(IWorkQueueService workQueueService, IHealthCheckService healthCheckService)
+        private readonly IWorkQueueService _workQueueService;
+        private readonly IHealthCheckService _healthCheckService;
+        private readonly ILogger<WorkQueueController> _logger;
+        public WorkQueueController(IWorkQueueService workQueueService, IHealthCheckService healthCheckService, ILogger<WorkQueueController> logger)
         {
             _workQueueService = workQueueService;
             _healthCheckService = healthCheckService;
+            _logger=logger;
         }
         [HttpPost("Create")]
         public async Task<ActionResult> Queue(string key)
@@ -26,7 +28,7 @@ namespace MachineHealthCheck.API.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.InnerException.Message);
+                return BadRequest(ex.Message);
             }
             return Ok();
         }
@@ -41,7 +43,7 @@ namespace MachineHealthCheck.API.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.InnerException.Message);
+                return BadRequest(ex.Message);
             }
             if(check == null)
             {
@@ -59,6 +61,7 @@ namespace MachineHealthCheck.API.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex.Message);
                 return BadRequest("There may be no work queued");
             }
             if (work == null) return BadRequest();
