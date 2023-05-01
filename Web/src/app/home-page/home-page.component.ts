@@ -50,7 +50,7 @@ export class HomePageComponent implements OnInit {
   this.dataService.deleteMachine(key).subscribe((res) => {
     console.log("The machine with key: " + key + " has been deleted.");
     this.getAllMachines();
-    this.toastr.success("Machine " + machine + " has been successfully deleted.", "Machine Deleted:", {
+    this.toastr.success(machine + " has been successfully deleted.", "Machine Deleted:", {
       timeOut: 3000,
       progressBar: true
     })
@@ -74,7 +74,7 @@ export class HomePageComponent implements OnInit {
     this.modalRef.onClose.subscribe((newMachine: any) => {
       console.log(newMachine);
       this.getAllMachines();
-      this.toastr.success("Machine " + newMachine.Machine + " has been successfully created.", "Machine Created:", {
+      this.toastr.success(newMachine.Machine + " has been successfully created.", "Machine Created:", {
         timeOut: 3000,
         progressBar: true
       })
