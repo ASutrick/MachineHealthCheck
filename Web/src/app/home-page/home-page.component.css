@@ -35,9 +35,10 @@ footer {
 }
 
 .main-container {
-    background-color: var(--container-color);
     width: 1000%;
-    height: 350px;
+    height: 430px;
+    background-color: var(--container-color);
+    background-image: url("/assets/images/Doctor_Icons_10.jpg");
     position: fixed;
     top: 50%;
     left: 50%;
@@ -100,7 +101,6 @@ footer {
 .table-container {
     width: 1000px;
     height: 700px;
-    overflow: auto;
     position: fixed;
     top: 50%;
     left: 50%;
@@ -113,10 +113,13 @@ footer {
 }
 
 .table-contents {
-    height: 80vh;
+    height: 62.5vh;
+    overflow: auto;
+    border-bottom-right-radius: 5%;
+    border-bottom-left-radius: 5%;
 }
 
-.table-container::-webkit-scrollbar {
+.table-contents::-webkit-scrollbar {
     display: none;
 }
 
@@ -126,15 +129,17 @@ mat-cell {
 }
 
 img {
-    max-width: 100px;
     height: auto;
-    margin: 10px;
-    margin-top: 5px;
+    width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    opacity: .15;
 }
 
 .table-container-title {
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    font-size: 40px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 50px;
     font-weight: bolder;
     color: var(--title-color);
     margin-top: 5rem;

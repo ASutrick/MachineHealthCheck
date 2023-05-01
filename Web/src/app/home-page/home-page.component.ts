@@ -4,6 +4,7 @@ import { MachineInfo } from '../interfaces/MachineInfo';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { MachineInfoModalComponent } from '../machine-info-modal/machine-info-modal.component';
 import { CreateMachineModalComponent } from '../create-machine-modal/create-machine-modal.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-home-page',
@@ -24,7 +25,8 @@ export class HomePageComponent implements OnInit {
   constructor (
     public dataService: DataService,
     private modalService: MdbModalService,
-    public changeDetectorRefs: ChangeDetectorRef
+    public changeDetectorRefs: ChangeDetectorRef,
+    public toastr: ToastrService
   ) { }
   
   ngOnInit(): void {
@@ -44,6 +46,17 @@ export class HomePageComponent implements OnInit {
   });
  }
 
+ deleteSelectedMachine(key: string, machine: string): void {
+  this.dataService.deleteMachine(key).subscribe((res) => {
+    console.log("The machine with key: " + key + " has been deleted.");
+    this.getAllMachines();
+    this.toastr.success("Machine " + machine + " has been successfully deleted.", "Machine Deleted:", {
+      timeOut: 3000,
+      progressBar: true
+    })
+  })
+ }
+
  openCheckServerModal(data: any) {
   this.modalRef = this.modalService.open(MachineInfoModalComponent, {
     data: {name: data.name, machine: data.machine, lastChecked: data.lastChecked, key: data.key}
@@ -61,6 +74,10 @@ export class HomePageComponent implements OnInit {
     this.modalRef.onClose.subscribe((newMachine: any) => {
       console.log(newMachine);
       this.getAllMachines();
+      this.toastr.success("Machine " + newMachine.Machine + " has been successfully created.", "Machine Created:", {
+        timeOut: 3000,
+        progressBar: true
+      })
     });
   }
 }

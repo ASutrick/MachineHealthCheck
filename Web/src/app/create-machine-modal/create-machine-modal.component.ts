@@ -42,10 +42,6 @@ export class CreateMachineModalComponent {
     };
     this.dataService.createNewMachine(newMachine).subscribe((res) => {
       this.modalRef.close(newMachine);
-      // this.toastr.success("Machine successfully added", "Success", {
-      //   timeOut: 5000,
-      //   progressBar: true
-      // })
     })
   }
 }

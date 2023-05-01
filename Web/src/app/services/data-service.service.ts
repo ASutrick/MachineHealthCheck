@@ -57,4 +57,14 @@ export class DataService {
       })
     )
   }
+
+  public deleteMachine (key: string) {
+    return this.http.delete(`${this.urlString}MachineInfo/Delete?key=` + key)
+      .pipe(
+        map((res:any) => {
+          console.log(res);
+          return res;
+      })
+    )
+  }
 }
