@@ -22,18 +22,26 @@ namespace MachineHealthCheck.API.Controllers
         public async Task<ActionResult<IList<MachineInfoDTO>>> ListMachineInfos()
         {
             List<MachineInfoDTO> returns = new List<MachineInfoDTO>();
-            var list = await _machineInfoService.GetAllActive();
-
-            if (list == null)
+            IList<MachineInfo> list;
+            try
             {
-                return (ActionResult<IList<MachineInfoDTO>>)NotFound();
-            }
-            foreach (var item in list)
-            {
-                returns.Add(MachineInfoDTO.FromMI(item));
-            }
+                list = await _machineInfoService.GetAllActive();
+                if (list == null)
+                {
+                    return (ActionResult<IList<MachineInfoDTO>>)NotFound();
+                }
+                foreach (var item in list)
+                {
+                    returns.Add(MachineInfoDTO.FromMI(item));
+                }
 
-            return (ActionResult<IList<MachineInfoDTO>>)Ok(returns);
+                return (ActionResult<IList<MachineInfoDTO>>)Ok(returns);
+            }
+            catch(Exception ex) 
+            {
+                _logger.LogError(ex.Message);
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost("Create")]
@@ -55,6 +63,7 @@ namespace MachineHealthCheck.API.Controllers
             }
             catch(Exception ex)
             {
+                _logger.LogError(ex.Message);
                 return BadRequest(ex.Message);
             }           
         }
@@ -68,6 +77,7 @@ namespace MachineHealthCheck.API.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex.Message);
                 return BadRequest(ex.Message);
             }
         }
@@ -89,6 +99,7 @@ namespace MachineHealthCheck.API.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex.Message);
                 return BadRequest(ex.Message);
             }
         }

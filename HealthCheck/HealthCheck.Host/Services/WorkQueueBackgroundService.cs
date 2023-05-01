@@ -30,8 +30,8 @@ namespace HealthCheck.Host.Services
         {
             using(IServiceScope scope = _serviceProvider.CreateScope())
             {
-                IWorkQueueService workQueueService = scope.ServiceProvider.GetService<IWorkQueueService>();
-                WorkQueue? work = await workQueueService.DequeueWork();
+                IWorkQueueService? workQueueService = scope.ServiceProvider.GetService<IWorkQueueService>();
+                WorkQueue? work = await workQueueService!.DequeueWork();
                 if (work != null)
                 {
                     _logger.LogInformation($"Sending request to Id {work.Id}");
