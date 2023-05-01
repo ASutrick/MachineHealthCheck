@@ -3,6 +3,7 @@ using MachineHealthCheck.Domain.Interfaces;
 using MachineHealthCheck.Domain.Models;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Reflection.PortableExecutable;
 
 namespace MachineHealthCheck.Service
 {
@@ -34,6 +35,24 @@ namespace MachineHealthCheck.Service
             }
             return;
            
+        }
+        public async Task<bool> KeyExists(string key)
+        {
+            MachineInfo? m;
+            IQueryable<MachineInfo> info = await _unitOfWork.Repository<MachineInfo>().FindByCondition(m => m.Key == key && m.isActive);
+            try
+            {
+                m = info.FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+                return true;
+            }
+            if (m == null)
+            {
+                return false;
+            }
+            return true;
         }
 
         public async Task Delete(string key)

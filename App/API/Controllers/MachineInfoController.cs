@@ -42,12 +42,20 @@ namespace MachineHealthCheck.API.Controllers
             var item = m.ToMI();
             try
             {
-                await _machineInfoService.Add(item);
+                bool keyExists = await _machineInfoService.KeyExists(m.Key);
+                if(!keyExists)
+                {
+                    await _machineInfoService.Add(item);
+                }
+                else
+                {
+                    return BadRequest();
+                }
                 return Ok();
             }
             catch(Exception ex)
             {
-                return BadRequest(ex.InnerException.Message);
+                return BadRequest(ex.Message);
             }           
         }
         [HttpDelete("Delete")]
@@ -60,7 +68,7 @@ namespace MachineHealthCheck.API.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.InnerException.Message);
+                return BadRequest(ex.Message);
             }
         }
         [HttpPut("Update")]
@@ -81,7 +89,7 @@ namespace MachineHealthCheck.API.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.InnerException.Message);
+                return BadRequest(ex.Message);
             }
         }
     }

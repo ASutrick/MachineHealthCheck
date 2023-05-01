@@ -7,6 +7,7 @@ namespace MachineHealthCheck.Domain.Interfaces
     { 
         Task<IList<MachineInfo>> GetAll();
         Task<IList<MachineInfo>> GetAllActive();
+        Task<bool> KeyExists(string key); 
         Task<MachineInfo> GetOne(Guid machineId);
         Task<MachineInfoDTO> Update(string key, MachineInfoDTO machine);
         Task Add(MachineInfo machine);
