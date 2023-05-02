@@ -14,7 +14,7 @@
                     <mat-cell class="table-font" id="cell" *matCellDef="let machine">{{machine.name || "NA"}}</mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="MachineName">
-                    <mat-header-cell class="table-font" id="header" *matHeaderCellDef> Machine Name </mat-header-cell>
+                    <mat-header-cell class="table-font" id="header" *matHeaderCellDef> Machine </mat-header-cell>
                     <mat-cell class="table-font" id="cell" *matCellDef="let machine">{{machine.machine || "NA"}}</mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="Key">
@@ -31,6 +31,16 @@
                         <button class="button" id="check-server" (click)="openCheckServerModal(machine)">
                             <div class="button-text">
                                 Check Details
+                            </div>
+                        </button>
+                    </mat-cell>                
+                </ng-container>
+                <ng-container matColumnDef="CheckHistory">
+                    <mat-header-cell class="table-font" *matHeaderCellDef> </mat-header-cell>
+                    <mat-cell class="table-font" *matCellDef="let machine">
+                        <button class="button" id="check-history" (click)="openCheckServerModal(machine)">
+                            <div class="button-text">
+                                Check History
                             </div>
                         </button>
                     </mat-cell>                

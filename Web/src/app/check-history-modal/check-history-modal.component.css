@@ -51,7 +51,3 @@
     padding-left: 1rem;
     color: var(--title-color);
 }
-
-.progress-status::ng-deep circle{
-    stroke: var(--title-color) !important;
-}

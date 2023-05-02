@@ -19,6 +19,8 @@ import { CreateMachineModalComponent } from './create-machine-modal/create-machi
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CheckHistoryModalComponent } from './check-history-modal/check-history-modal.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -26,9 +28,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HomePageComponent,
     NavBarComponent,
     MachineInfoModalComponent,
-    CreateMachineModalComponent
+    CreateMachineModalComponent,
+    CheckHistoryModalComponent
   ],
   imports: [
+    MatProgressSpinnerModule,
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,

@@ -48,6 +48,16 @@ export class DataService {
     )
   }
 
+  public waitWorkQueue(key: string) {
+    return this.http.post(`${this.urlString}WorkQueue/WaitCreate?key=` + key, null)
+      .pipe(
+        map((res:any) => {
+          console.log(res);
+          return res;
+      })
+    )
+  } 
+
   public createNewMachine(model: MachineInfo): Observable<MachineInfo> {
     return this.http.post<any>(`${this.urlString}MachineInfo/Create`, model)
       .pipe(

@@ -18,7 +18,7 @@ export class HomePageComponent implements OnInit {
   public selectedMachines: MachineInfo[] = [];
   public selectedMachine: MachineInfo | undefined;
   public toggleIcon = false;
-  public displayedColumns = ["ClientName", "MachineName", "Key", "Last Check-In", "CheckServer", "Delete"];
+  public displayedColumns = ["ClientName", "MachineName", "Key", "Last Check-In", "CheckServer", "CheckHistory", "Delete"];
   public allMachineData: any;
   public machineDataSource = new MatTableDataSource;
   public modalRef: MdbModalRef<MachineInfoModalComponent> | null = null;
