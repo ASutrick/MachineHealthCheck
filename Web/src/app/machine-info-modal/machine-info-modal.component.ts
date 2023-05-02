@@ -4,8 +4,6 @@ import { HealthCheckInfo } from '../interfaces/HealthCheckInfo';
 import { DataService } from '../services/data-service.service';
 import { MachineInfo } from '../interfaces/MachineInfo';
 
-const units = ['bytes', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB'];
-
 @Component({
   selector: 'app-machine-info-modal',
   templateUrl: './machine-info-modal.component.html',
@@ -19,6 +17,7 @@ export class MachineInfoModalComponent {
   public lastChecked: string = "";
   public key: string = "";
   public selectedKey: string = "";
+  public isLoading: boolean = false;
   public recentMachine!: HealthCheckInfo;
   public recentMachineData: any = [];
   public selectedMachines: MachineInfo[] = [];
@@ -44,7 +43,7 @@ export class MachineInfoModalComponent {
     // return bytes if less than a KB
     if(bytes < kiloBytes) return bytes + " Bytes";
     // return KB if less than a MB
-    else if(bytes < megaBytes) return(bytes / kiloBytes).toFixed(decimal) + " KB";
+    else if(bytes < megaBytes) return(bytes / kiloBytes).toFixed(decimal) + " GB";
     // return MB if less than a GB
     else if(bytes < gigaBytes) return(bytes / megaBytes).toFixed(decimal) + " MB";
     // return GB if less than a TB
@@ -55,7 +54,6 @@ export class MachineInfoModalComponent {
     this.dataService.getMostRecentMachine(key).subscribe((res) => {
       this.recentMachineData = res;
       this.recentMachine = res;
-      console.log(this.recentMachineData);
     })
   }
 
@@ -63,14 +61,15 @@ export class MachineInfoModalComponent {
     this.dataService.getAllMachines().subscribe((res) => {
       this.selectedMachines = res;
       this.changeDetectorRefs.markForCheck();
-      console.log(this.selectedMachines);
     });
   }
 
   startMachineHealthCheck(key: string): void {
-    this.dataService.startWorkQueue(key).subscribe((res) => {
+    this.isLoading = true;
+    this.dataService.waitWorkQueue(key).subscribe((res) => {
       this.selectedKey = res;
-      console.log(this.selectedKey);
+      this.getRecentMachine(key);
+      this.isLoading = false;
     })
   }
 

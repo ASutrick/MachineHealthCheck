@@ -39,6 +39,9 @@
     </div>
   </div>
   <div class="modal-footer border-0">
+    <div class="progress-status" *ngIf="isLoading">
+      <mat-spinner color="black"></mat-spinner>
+    </div>
     <button type="button" class="modal-button" (click)="startMachineHealthCheck(key)">Check Machine</button>
     <button type="button" class="modal-button" (click)="getRecentMachine(key)">Refresh</button>
     <button type="button" class="modal-button" aria-label="Close" (click)="closeModal()">Close</button>
