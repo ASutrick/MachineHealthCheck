@@ -8,7 +8,7 @@
             Create Machine
         </button>
         <div class="table-contents">
-            <mat-table [dataSource]="selectedMachines" class ="table-design">
+            <mat-table class ="table-design" [dataSource]="allMachineData">
                 <ng-container matColumnDef="ClientName">
                     <mat-header-cell class="table-font" id="header" *matHeaderCellDef> Client Name </mat-header-cell>
                     <mat-cell class="table-font" id="cell" *matCellDef="let machine">{{machine.name || "NA"}}</mat-cell>

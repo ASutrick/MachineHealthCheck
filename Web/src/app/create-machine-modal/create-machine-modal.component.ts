@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-//import { ToastrService } from 'ngx-toastr';
-import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
+import { MdbModalRef } from 'mdb-angular-ui-kit/modal';
 import { DataService } from '../services/data-service.service';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { MachineInfo } from '../interfaces/MachineInfo';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-create-machine-modal',
@@ -12,7 +12,8 @@ import { MachineInfo } from '../interfaces/MachineInfo';
 })
 export class CreateMachineModalComponent {
 
-  newMachineForm = new FormGroup({
+  public selectedMachines: MachineInfo[] = [];
+  public newMachineForm = new FormGroup({
     name : new FormControl(),
     machine : new FormControl(),
     key : new FormControl()
@@ -20,14 +21,19 @@ export class CreateMachineModalComponent {
 
   constructor(
     public dataService: DataService,
-    private modalService: MdbModalService,
-    private formBuilder: FormBuilder,
-    //public toastr: ToastrService,
+    public toastr: ToastrService,
     public modalRef: MdbModalRef<CreateMachineModalComponent>
   ) {}
 
   ngOnInit(): void {
-    
+    this.getAllMachines();
+  }
+
+  getAllMachines(): void {
+    this.dataService.getAllMachines().subscribe((res) => {
+      this.selectedMachines = res;
+      console.log(this.selectedMachines);
+    });
   }
 
   submitNewMachine(): void {
@@ -42,6 +48,11 @@ export class CreateMachineModalComponent {
     };
     this.dataService.createNewMachine(newMachine).subscribe((res) => {
       this.modalRef.close(newMachine);
-    })
+    }, error => {
+      this.toastr.error("Cannot create a machine with the same key.", "Error:", {
+        timeOut: 3000,
+        progressBar: true
+      })
+    });
   }
 }

@@ -59,7 +59,7 @@ input, label {
 }
 
 input {
-    height: 30px !important;
+    height: 35px !important;
     border: double 5px;
     border-color: var(--border-color) !important;
     color: var(--title-color) !important;
