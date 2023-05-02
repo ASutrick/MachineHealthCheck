@@ -1,9 +1,10 @@
-import { Component, OnInit, ChangeDetectorRef, NgZone } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, NgZone, ViewChild, ElementRef } from '@angular/core';
 import { DataService } from '../services/data-service.service';
 import { MachineInfo } from '../interfaces/MachineInfo';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { MachineInfoModalComponent } from '../machine-info-modal/machine-info-modal.component';
 import { CreateMachineModalComponent } from '../create-machine-modal/create-machine-modal.component';
+import {MatTableDataSource} from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -13,14 +14,15 @@ import { ToastrService } from 'ngx-toastr';
 })
 
 export class HomePageComponent implements OnInit {
+  @ViewChild('filter', {static: false}) filter: ElementRef | undefined;
   public selectedMachines: MachineInfo[] = [];
   public selectedMachine: MachineInfo | undefined;
   public toggleIcon = false;
   public displayedColumns = ["ClientName", "MachineName", "Key", "Last Check-In", "CheckServer", "Delete"];
-  public allMachineData: any[] = [];
+  public allMachineData: any;
+  public machineDataSource = new MatTableDataSource;
   public modalRef: MdbModalRef<MachineInfoModalComponent> | null = null;
   public createModalRef: MdbModalRef<CreateMachineModalComponent> | null = null;
-  public name = "";
   
   constructor (
     public dataService: DataService,
@@ -34,15 +36,16 @@ export class HomePageComponent implements OnInit {
   }
 
   toggleDarkTheme(): void {
-    console.log("You clicked me!");
     document.body.classList.toggle("dark-theme");
  }
 
  getAllMachines(): void {
   this.dataService.getAllMachines().subscribe((res) => {
     this.selectedMachines = res;
+    this.allMachineData = res;
+    this.machineDataSource = this.allMachineData;
     this.changeDetectorRefs.markForCheck();
-    console.log(this.selectedMachines);
+    console.log(this.machineDataSource);
   });
  }
 

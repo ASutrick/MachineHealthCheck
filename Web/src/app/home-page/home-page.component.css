@@ -112,12 +112,28 @@ footer {
     border-radius: 5%;
 }
 
+/* Search Bar */
+.search-bar {
+    margin-left: 1.3rem;
+    margin-top: .8rem;
+    height: 35px !important;
+    border: double 5px;
+    border-color: var(--border-color) !important;
+    color: var(--title-color) !important;
+    font-size: 14px;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
 .table-contents {
     height: 62.5vh;
     overflow: auto;
     border-bottom-right-radius: 5%;
     border-bottom-left-radius: 5%;
 }
+
+.mat-mdc-row:hover .mat-mdc-cell {
+    background-color: var(--border-color-hover) !important;
+  }
 
 .table-contents::-webkit-scrollbar {
     display: none;

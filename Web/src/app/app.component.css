@@ -46,6 +46,13 @@ body.dark-theme {
 /*Toastr Notifications*/
 #toast-container> .toast-success {
     background-image: url("/assets/images/Computer.png");
+    background-color: var(--border-color) !important;
+    color: var(--text-color);
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    width: 400px;
+}
+
+#toast-container> .toast-error {
     background-color: var(--btn-bg-color-hover) !important;
     color: var(--text-color);
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;

@@ -57,7 +57,7 @@ namespace MachineHealthCheck.API.Controllers
                 }
                 else
                 {
-                    return BadRequest();
+                    return Conflict();
                 }
                 return Ok();
             }
