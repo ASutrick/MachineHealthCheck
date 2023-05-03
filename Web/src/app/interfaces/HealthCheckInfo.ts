@@ -1,7 +1,7 @@
 export interface HealthCheckInfo {
-    Date: Date,
-    CPUInfo: string [],
-    MemoryInfo: string [],
-    SqlInfo: string [],
-    DiskInfo: string []
+    date: Date,
+    cpuInfo: string [],
+    memoryInfo: string [],
+    sqlInfo: string [],
+    diskInfo: string []
 }
