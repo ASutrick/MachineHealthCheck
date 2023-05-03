@@ -50,8 +50,5 @@ namespace HealthCheck.Host
             _logger.LogInformation($"New Health Check for machine with key: {key}");
             return;
         }
-
-
-
     }
 }

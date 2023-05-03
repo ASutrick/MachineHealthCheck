@@ -14,7 +14,6 @@ namespace HealthCheck.Host
                         .AddJsonFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "appsettings.json"))
                         .Build();
             var builder = WebApplication.CreateBuilder(args);
-
             builder.Services.AddDbContext<AppDbContext>(options =>
             {
                 options.UseSqlServer("Server=localhost\\SQLEXPRESS;TrustServerCertificate=Yes;Database=MachineHealthCheck;Trusted_Connection=True;",
@@ -25,25 +24,19 @@ namespace HealthCheck.Host
             builder.Services.AddScoped<Func<AppDbContext>>((provider) => () => provider.GetService<AppDbContext>());
             builder.Services.AddScoped<DbFactory>();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-            // Add services to the container.
             builder.Services.AddScoped<IWorkQueueService, WorkQueueService>();
             builder.Services.AddScoped<IHealthCheckHubService, HealthCheckHubService>();
-            //builder.Services.AddHostedService<SignalrWorkerService>();
             builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             builder.Services.AddSignalR();
             builder.Services.AddHostedService<WorkQueueBackgroundService>();
             var app = builder.Build();
-
-            // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-
             app.UseHttpsRedirection();
             app.UseAuthorization();
             app.MapControllers();

@@ -11,11 +11,13 @@ namespace MachineHealthCheck.API.Controllers
     {
         private readonly ILogger<HealthCheckController> _logger;
         private readonly IHealthCheckService _healthCheckService;
+
         public HealthCheckController(ILogger<HealthCheckController> logger, IHealthCheckService healthCheckService)
         {
             _logger = logger;
             _healthCheckService = healthCheckService;
         }
+
         [HttpGet("List")]
         public async Task<ActionResult<IList<HealthCheckDTO>>> List(string key)
         {
@@ -36,12 +38,13 @@ namespace MachineHealthCheck.API.Controllers
 
                 return (ActionResult<IList<HealthCheckDTO>>)Ok(returns);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
                 return BadRequest(ex.Message);
             }
         }
+
         [HttpGet("MostRecent")]
         public async Task<ActionResult<IList<HealthCheckDTO>>> MostRecent(string key)
         {
@@ -56,7 +59,7 @@ namespace MachineHealthCheck.API.Controllers
 
                 return (ActionResult<IList<HealthCheckDTO>>)Ok(HealthCheckDTO.FromEntity(one));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
                 return BadRequest(ex.Message);

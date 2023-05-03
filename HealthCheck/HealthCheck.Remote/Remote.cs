@@ -11,16 +11,19 @@ namespace MachineHealthCheck.Remote
         public static void Main(string[] args)
         {
             string key;
-            if(args.Length == 0) {
+            if (args.Length == 0)
+            {
                 Console.WriteLine("Please enter the key provided to you:");
                 key = Console.ReadLine();
-                if(String.IsNullOrEmpty(key)) { Environment.Exit(1); }
+                if (String.IsNullOrEmpty(key))
+                {
+                    Environment.Exit(1);
+                }
             }
             else
             {
                 key = args[0];
             }
-           
             var host = new HostBuilder()
                 .ConfigureAppConfiguration(configApp =>
                 {
@@ -28,7 +31,7 @@ namespace MachineHealthCheck.Remote
                     configApp.AddJsonFile("appsettings.json", optional: true);
                 })
                 .ConfigureServices(services =>
-                { 
+                {
                     services.AddSingleton(new ServiceArgs(key));
                     services.AddHostedService<SignalrClientService>();
                 })
@@ -38,7 +41,6 @@ namespace MachineHealthCheck.Remote
                     configLogging.AddDebug();
                 })
                 .Build();
-
             host.Run();
         }
     }

@@ -1,9 +1,6 @@
 ﻿using MachineHealthCheck.Domain.Entities;
 using MachineHealthCheck.Domain.Interfaces;
 using MachineHealthCheck.Domain.Interfaces.Services;
-using MachineHealthCheck.Infrastructure.Migrations;
-using System.Linq;
-using System.Reflection.PortableExecutable;
 
 namespace HealthCheck.Host.Services
 {
@@ -16,7 +13,6 @@ namespace HealthCheck.Host.Services
             _unitOfWork = unitOfWork;
             _logger = logger;
         }
-
         public async Task<bool> Disconnect(string connId)
         {
             IQueryable<MachineInfo>? machines = await _unitOfWork.Repository<MachineInfo>().FindByCondition(m => m.ConnectionId == connId);
@@ -25,21 +21,20 @@ namespace HealthCheck.Host.Services
             {
                 m = machines.First();
             }
-            catch (InvalidOperationException e) 
+            catch (InvalidOperationException e)
             {
                 _logger.LogError(e.Message);
-                return false; 
+                return false;
             }
-
             try
             {
                 await _unitOfWork.BeginTransaction();
-
                 var workRepos = _unitOfWork.Repository<MachineInfo>();
                 var work = await workRepos.FindAsync(m.Id);
                 if (work == null)
+                {
                     throw new KeyNotFoundException();
-
+                }
                 work.isVerified = false;
                 work.ConnectionId = null;
                 await _unitOfWork.CommitTransaction();
@@ -60,31 +55,30 @@ namespace HealthCheck.Host.Services
             {
                 m = machines.First();
             }
-            catch (InvalidOperationException e) 
+            catch (InvalidOperationException e)
             {
                 _logger.LogError(e.Message);
-                return false; 
+                return false;
             }
             healthCheck.MachineInfoId = m.Id;
             try
             {
                 await _unitOfWork.Repository<MachineHealthCheck.Domain.Entities.HealthCheck>().InsertAsync(healthCheck, true);
             }
-            catch(Exception e) 
+            catch (Exception e)
             {
                 _logger.LogError(e.Message);
-                return false; 
+                return false;
             }
-
             try
             {
                 await _unitOfWork.BeginTransaction();
-
                 var workRepos = _unitOfWork.Repository<MachineInfo>();
                 var work = await workRepos.FindAsync(m.Id);
                 if (work == null)
+                {
                     throw new KeyNotFoundException();
-
+                }
                 work.LastChecked = healthCheck.Date;
                 await _unitOfWork.CommitTransaction();
             }
@@ -94,10 +88,8 @@ namespace HealthCheck.Host.Services
                 await _unitOfWork.RollbackTransaction();
                 return false;
             }
-
             return true;
         }
-
         public async Task<bool> Verify(string key, string connId)
         {
 
@@ -107,12 +99,11 @@ namespace HealthCheck.Host.Services
             {
                 m = machines.First();
             }
-            catch (InvalidOperationException e) 
+            catch (InvalidOperationException e)
             {
                 _logger.LogError(e.Message);
-                return false; 
+                return false;
             }
-
             try
             {
                 await _unitOfWork.BeginTransaction();

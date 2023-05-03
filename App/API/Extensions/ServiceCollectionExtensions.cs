@@ -9,34 +9,20 @@ namespace MachineHealthCheck.API.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        /// <summary>
-        /// Add needed instances for database
-        /// </summary>
-        /// <param name="services"></param>
-        /// <param name="configuration"></param>
-        /// <returns></returns>
         public static IServiceCollection AddDatabase(this IServiceCollection services)
         {
-            // Configure DbContext with Scoped lifetime   
             services.AddDbContext<AppDbContext>(options =>
             {
                 options.UseSqlServer(AppSettings.ConnectionString,
                     sqlOptions => sqlOptions.CommandTimeout(120));
             }
             );
-
             services.AddScoped<Func<AppDbContext>>((provider) => () => provider.GetService<AppDbContext>());
             services.AddScoped<DbFactory>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-
             return services;
         }
 
-        /// <summary>
-        /// Add instances of in-use services
-        /// </summary>
-        /// <param name="services"></param>
-        /// <returns></returns>
         public static IServiceCollection AddServices(this IServiceCollection services)
         {
             services.AddScoped<IMachineInfoService, MachineInfoService>();
@@ -45,12 +31,15 @@ namespace MachineHealthCheck.API.Extensions
             return services;
 
         }
+
         public static IServiceCollection AddCORS(this IServiceCollection services)
         {
             return // CORS
-                services.AddCors(options => {
+                services.AddCors(options =>
+                {
                     options.AddPolicy("CorsPolicy",
-                        builder => {
+                        builder =>
+                        {
                             builder.AllowAnyOrigin()
                                 .AllowAnyMethod()
                                 .AllowAnyHeader();

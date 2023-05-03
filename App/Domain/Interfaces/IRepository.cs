@@ -60,7 +60,12 @@ namespace MachineHealthCheck.Domain.Interfaces
         /// <param name="saveChanges"></param>
         /// <returns></returns>
         Task DeleteRangeAsync(IEnumerable<T> entities, bool saveChanges = true);
-
+        /// <summary>
+        /// Query for an item by an expression with includes
+        /// </summary>
+        /// <param name="expression"></param>
+        /// <param name="includes"></param>
+        /// <returns></returns>
         Task<IQueryable<T>> FindByCondition(Expression<Func<T, bool>> expression, params Expression<Func<T, object>>[] includes);
     }
 }
