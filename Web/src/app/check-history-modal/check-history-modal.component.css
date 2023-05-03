@@ -48,6 +48,86 @@
 .modal-body-style {
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     font-size: 14px;
-    padding-left: 1rem;
     color: var(--title-color);
+    height: 400px;
+    overflow: auto;
+}
+
+.header-padding {
+    padding-left: 1rem;
+}
+
+.button {
+    background-color: var(--btn-bg-color);
+    height: 30px;
+    margin: 0;
+    margin-bottom: .5rem;
+    border-radius: 50px;
+    border-color: var(--border-color);
+    border-style: double;
+    color: var(--text-color);
+    font-size: 14px;
+    font-weight: bold;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    transition: background-color 1s, color 1s;
+}
+
+.button:hover {
+    background-color: var(--btn-bg-color-hover);
+    color: var(--text-color);
+}
+
+/* Creating a section for the table*/
+.table-container {
+    width: auto;
+    height: 400px;
+}
+
+.table-contents {
+    overflow: auto;
+}
+
+.mat-mdc-row:hover .mat-mdc-cell {
+    background-color: var(--border-color-hover) !important;
+  }
+
+.modal-body-style::-webkit-scrollbar {
+    display: none;
+}
+
+mat-cell {
+    display: grid;
+    margin: 0;
+}
+
+img {
+    height: auto;
+    width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    opacity: .15;
+}
+
+.table-design {
+    background-color: var(--container-color);
+    font-size: 14px;
+}
+
+.table-font {
+    padding-top: .5rem;
+    border-color: var(--container-border-color);
+    border-width: .2rem;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: var(--title-color);
+}
+
+#header {
+    font-size: 14px;
+}
+
+#cell {
+    font-size: 13.5px;
+    vertical-align: middle;
+    padding-bottom: 5px;
 }

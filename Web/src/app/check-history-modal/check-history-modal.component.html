@@ -1,1 +1,32 @@
-<p>Check history modal works!</p>
+<div class="modal-style">
+    <div class="modal-header border-0">
+      <h5 class="modal-container-title" id="exampleModalLabel">Health Check History for: {{machine}}</h5>
+    </div>
+      <div class="modal-body; modal-body-style">
+        <div class="table-container">
+          <div class="table-contents">
+            <mat-table class ="table-design" [dataSource]="healthCheckData" matSort>
+                <ng-container matColumnDef="Last Check-In">
+                    <mat-header-cell class="table-font" id="header" *matHeaderCellDef> Last Check-In </mat-header-cell>
+                    <mat-cell class="table-font" id="cell" *matCellDef="let machine">{{(machine.date | date: "short") || "NA"}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="Details">
+                  <mat-header-cell class="table-font" *matHeaderCellDef> </mat-header-cell>
+                  <mat-cell class="table-font" *matCellDef="let machine">
+                      <button class="button">
+                          <div class="button-text">
+                              Details
+                          </div>
+                      </button>
+                  </mat-cell>                
+              </ng-container>
+                <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+            </mat-table>
+          </div>
+        </div>
+      </div>    
+    <div class="modal-footer border-0">
+      <button type="button" class="modal-button" aria-label="Close" (click)="closeModal()">Close</button>
+    </div>
+</div>

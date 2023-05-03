@@ -6,6 +6,7 @@ import { MachineInfoModalComponent } from '../machine-info-modal/machine-info-mo
 import { CreateMachineModalComponent } from '../create-machine-modal/create-machine-modal.component';
 import {MatTableDataSource} from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
+import { CheckHistoryModalComponent } from '../check-history-modal/check-history-modal.component';
 
 @Component({
   selector: 'app-home-page',
@@ -23,6 +24,7 @@ export class HomePageComponent implements OnInit {
   public machineDataSource = new MatTableDataSource;
   public modalRef: MdbModalRef<MachineInfoModalComponent> | null = null;
   public createModalRef: MdbModalRef<CreateMachineModalComponent> | null = null;
+  public checkModalRef: MdbModalRef<CheckHistoryModalComponent> | null = null;
   
   constructor (
     public dataService: DataService,
@@ -72,6 +74,13 @@ export class HomePageComponent implements OnInit {
     console.log(this.selectedMachine);
   }
 
+  openCheckHistoryModal (data: any) {
+    this.modalRef = this.modalService.open(CheckHistoryModalComponent, {
+      data: {name: data.name, machine: data.machine, key: data.key}
+    });
+    console.log(data.machine)
+  }
+
   openCreateMachineModal () {
     this.modalRef = this.modalService.open(CreateMachineModalComponent);
     this.modalRef.onClose.subscribe((newMachine: any) => {
@@ -80,7 +89,7 @@ export class HomePageComponent implements OnInit {
       this.toastr.success(newMachine.Machine + " has been successfully created.", "Machine Created:", {
         timeOut: 3000,
         progressBar: true
-      })
+      });
     });
   }
 }

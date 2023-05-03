@@ -19,6 +19,11 @@ app-create-machine-modal {
     border-radius: 5px;
 }
 
+app-check-history-modal {
+    background-color: var(--container-color) !important;
+    border-radius: 5px;
+}
+
 body {
     --bg-color: #ffdcd9; 
     --btn-bg-color: #a0d1c3;

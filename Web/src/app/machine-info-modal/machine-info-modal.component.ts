@@ -1,5 +1,5 @@
-import { ChangeDetectorRef, Component, Inject, Input } from '@angular/core';
-import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
+import { ChangeDetectorRef, Component, Input } from '@angular/core';
+import { MdbModalRef } from 'mdb-angular-ui-kit/modal';
 import { HealthCheckInfo } from '../interfaces/HealthCheckInfo';
 import { DataService } from '../services/data-service.service';
 import { MachineInfo } from '../interfaces/MachineInfo';
@@ -18,6 +18,7 @@ export class MachineInfoModalComponent {
   public key: string = "";
   public selectedKey: string = "";
   public isLoading: boolean = false;
+  public startCheck: boolean = false;
   public recentMachine!: HealthCheckInfo;
   public recentMachineData: any = [];
   public selectedMachines: MachineInfo[] = [];
@@ -29,8 +30,9 @@ export class MachineInfoModalComponent {
   ) {}
 
   ngOnInit(): void {
-    console.log(this.name + ",\n" + this.machine + ",\n" + this.lastChecked + ",\n" + this.key);
-    this.getRecentMachine(this.key);
+    if(this.lastChecked != null) {
+      this.getRecentMachine(this.key);
+    }
   }
    
   formatBytes(bytes: any) {
@@ -48,7 +50,7 @@ export class MachineInfoModalComponent {
     else if(bytes < gigaBytes) return(bytes / megaBytes).toFixed(decimal) + " MB";
     // return GB if less than a TB
     else return(bytes / gigaBytes).toFixed(decimal) + " GB";
-}
+  }
 
   getRecentMachine(key: string): void {
     this.dataService.getMostRecentMachine(key).subscribe((res) => {
@@ -66,14 +68,21 @@ export class MachineInfoModalComponent {
 
   startMachineHealthCheck(key: string): void {
     this.isLoading = true;
+    this.startCheck = true;
     this.dataService.waitWorkQueue(key).subscribe((res) => {
       this.selectedKey = res;
       this.getRecentMachine(key);
       this.isLoading = false;
-    })
+      this.startCheck = false;
+    });
   }
 
   closeModal(): void {
+    if (this.modalRef.onClose) {
+      this.dataService.stopWorkQueue().subscribe((res) => {
+        console.log(res);
+      });
+    }
     this.modalRef.close();
   }
 }

@@ -26,6 +26,16 @@ export class DataService {
     )
   }
 
+  public getAllHealthChecks(key: string): Observable<HealthCheckInfo> {
+    return this.http.get(`${this.urlString}HealthCheck/List?key=` + key)
+      .pipe(
+        map((res:any) => {
+          console.log(res);
+          return res;
+      })
+    )
+  }
+
   public getMostRecentMachine(key: string): Observable<HealthCheckInfo> {
     const params = new HttpParams()
     .set ('key', key);
@@ -70,6 +80,16 @@ export class DataService {
 
   public deleteMachine (key: string) {
     return this.http.delete(`${this.urlString}MachineInfo/Delete?key=` + key)
+      .pipe(
+        map((res:any) => {
+          console.log(res);
+          return res;
+      })
+    )
+  }
+
+  public stopWorkQueue() {
+    return this.http.delete(`${this.urlString}WorkQueue/Delete`)
       .pipe(
         map((res:any) => {
           console.log(res);
