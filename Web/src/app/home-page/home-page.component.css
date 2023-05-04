@@ -38,7 +38,7 @@ footer {
     width: 1000%;
     height: 430px;
     background-color: var(--container-color);
-    background-image: url("/assets/images/Doctor_Icons_10.jpg");
+    background-image: var(--background-image);
     position: fixed;
     top: 50%;
     left: 50%;

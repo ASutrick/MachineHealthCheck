@@ -34,6 +34,7 @@ body {
     --border-color-hover: whitesmoke;
     --container-border-color: #5fa796;
     --title-color: #5fa796;
+    --background-image: url("/assets/images/Doctor_Icons_LIGHT.jpg");
 }
 
 body.dark-theme {
@@ -46,6 +47,7 @@ body.dark-theme {
     --border-color-hover: whitesmoke;
     --container-border-color: #44776b;
     --title-color:  #44776b;
+    --background-image: url("/assets/images/Doctor_Icons_DARK.jpg");
 }
 
 /*Toastr Notifications*/

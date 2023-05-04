@@ -47,13 +47,11 @@ export class HomePageComponent implements OnInit {
     this.allMachineData = res;
     this.machineDataSource = this.allMachineData;
     this.changeDetectorRefs.markForCheck();
-    console.log(this.machineDataSource);
   });
  }
 
  deleteSelectedMachine(key: string, machine: string): void {
   this.dataService.deleteMachine(key).subscribe((res) => {
-    console.log("The machine with key: " + key + " has been deleted.");
     this.getAllMachines();
     this.toastr.success(machine + " has been successfully deleted.", "Machine Deleted:", {
       timeOut: 3000,
@@ -69,22 +67,17 @@ export class HomePageComponent implements OnInit {
   this.modalRef.onClose.subscribe(() => {
     this.getAllMachines();
   });
-    console.log(data.name);
-    console.log(data.lastChecked);
-    console.log(this.selectedMachine);
   }
 
   openCheckHistoryModal (data: any) {
     this.modalRef = this.modalService.open(CheckHistoryModalComponent, {
       data: {name: data.name, machine: data.machine, key: data.key}
     });
-    console.log(data.machine)
   }
 
   openCreateMachineModal () {
     this.modalRef = this.modalService.open(CreateMachineModalComponent);
     this.modalRef.onClose.subscribe((newMachine: any) => {
-      console.log(newMachine);
       this.getAllMachines();
       this.toastr.success(newMachine.Machine + " has been successfully created.", "Machine Created:", {
         timeOut: 3000,

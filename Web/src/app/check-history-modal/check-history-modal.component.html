@@ -1,6 +1,11 @@
 <div class="modal-style">
     <div class="modal-header border-0">
-      <h5 class="modal-container-title" id="exampleModalLabel">Health Check History for: {{machine}}</h5>
+      <h5 class="modal-container-title" id="title">
+        Health Check History for: {{machine}}<br>
+        <div id="sub-title">
+          Total Health Checks: {{healthCheckData?.length}}
+        </div>
+      </h5>
     </div>
       <div class="modal-body; modal-body-style">
         <div class="table-container">
@@ -8,18 +13,34 @@
             <mat-table class ="table-design" [dataSource]="healthCheckData" matSort>
                 <ng-container matColumnDef="Last Check-In">
                     <mat-header-cell class="table-font" id="header" *matHeaderCellDef> Last Check-In </mat-header-cell>
-                    <mat-cell class="table-font" id="cell" *matCellDef="let machine">{{(machine.date | date: "short") || "NA"}}</mat-cell>
-                </ng-container>
-                <ng-container matColumnDef="Details">
-                  <mat-header-cell class="table-font" *matHeaderCellDef> </mat-header-cell>
-                  <mat-cell class="table-font" *matCellDef="let machine">
-                      <button class="button">
-                          <div class="button-text">
-                              Details
+                      <mat-cell type="button" class="table-font" id="cell" *matCellDef="let machine">
+                        <details>
+                          <summary>
+                            {{(machine.date | date: "long") || "NA"}}
+                          </summary>
+                          <div class="modal-label">CPU Data:</div>
+                          <ng-container *ngFor="let cpu of machine.cpuInfo">
+                            <b>Name:</b> {{cpu?.name}}<br>
+                            <b>Number of Cores:</b> {{cpu?.numOfCores}}<br>
+                            <b>Number of Logical Processors:</b> {{cpu?.numOfLogicalProcessors}}<br>
+                            <b>Percent in Use:</b> {{cpu?.percentInUse | number: '1.1-2'}}%
+                          </ng-container>
+                          <br>
+                          <div class="modal-label">Disk Data:</div>
+                          <div *ngFor="let disk of machine.diskInfo">
+                            <b>Capacity:</b> {{formatBytes(disk?.capacityMb)}}<br>
+                            <b>Free Space:</b> {{formatBytes(disk?.freeSpaceMb)}}<br>
+                            <b>Percent Utilized:</b> {{disk?.percentUtilization | number: '1.1-2'}}%
                           </div>
-                      </button>
-                  </mat-cell>                
-              </ng-container>
+                          <div class="modal-label">Memory Data:</div>
+                            <b>Percent in Use:</b> {{machine.memoryInfo?.percentInUse | number: '1.1-2'}}%<br>
+                            <b>Total GB:</b> {{formatBytes(machine.memoryInfo?.totalPhysicalMb)}}<br>
+                          <div class="modal-label">SQL Data:</div>
+                            <b>Has SQL Server:</b> {{machine.sqlInfo?.hasSqlServer}}<br>
+                            <b>SQL Server Version:</b> {{machine.sqlInfo?.sqlServerVersion}}
+                        </details>
+                      </mat-cell>                                                                 
+                </ng-container>
                 <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
                 <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
             </mat-table>
