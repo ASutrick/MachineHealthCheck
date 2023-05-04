@@ -17,7 +17,7 @@ namespace HealthCheck.Host.Services
         {
             WorkQueue one;
             IQueryable<WorkQueue> actives = await _unitOfWork.Repository<WorkQueue>().FindByCondition(q => q.isActive);
-            try 
+            try
             {
                 if (actives.Any())
                 {
@@ -29,15 +29,20 @@ namespace HealthCheck.Host.Services
                     return null;
                 }
             }
-            catch (Exception ex) { _logger.LogError(ex,"There was issue dequeueing work!"); return null; }
-
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "There was issue dequeueing work!");
+                return null;
+            }
             try
             {
                 await _unitOfWork.BeginTransaction();
                 var workRepos = _unitOfWork.Repository<WorkQueue>();
                 var work = await workRepos.FindAsync(one.Id);
                 if (work == null)
+                {
                     throw new KeyNotFoundException();
+                }
                 work.isActive = false;
                 await _unitOfWork.CommitTransaction();
                 one = work;
@@ -49,7 +54,6 @@ namespace HealthCheck.Host.Services
             }
             return one;
         }
-
         public async Task QueueWork(string key)
         {
             throw new NotImplementedException();

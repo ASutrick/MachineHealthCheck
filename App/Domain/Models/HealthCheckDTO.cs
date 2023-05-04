@@ -9,7 +9,6 @@ namespace MachineHealthCheck.Domain.Models
         public MemoryInfoDTO MemoryInfo { get; set; } = null!;
         public SqlInfoDTO SqlInfo { get; set; } = null!;
         public ICollection<DiskInfoDTO> DiskInfo { get; set; } = null!;
-
         public static HealthCheckDTO FromEntity(HealthCheck check)
         {
             HealthCheckDTO dto = new HealthCheckDTO();
@@ -18,14 +17,14 @@ namespace MachineHealthCheck.Domain.Models
             dto.SqlInfo = SqlInfoDTO.FromEntity(check.SqlInfo);
 
             ICollection<CPUInfoDTO> cpus = new List<CPUInfoDTO>();
-            foreach(var cpu in check.CPUInfo) 
+            foreach (var cpu in check.CPUInfo)
             {
                 cpus.Add(CPUInfoDTO.FromEntity(cpu));
             }
             dto.CPUInfo = cpus;
 
             ICollection<DiskInfoDTO> disks = new List<DiskInfoDTO>();
-            foreach(var disk in check.DiskInfo)
+            foreach (var disk in check.DiskInfo)
             {
                 disks.Add(DiskInfoDTO.FromEntity(disk));
             }

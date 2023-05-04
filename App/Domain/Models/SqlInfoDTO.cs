@@ -6,7 +6,6 @@ namespace MachineHealthCheck.Domain.Models
     {
         public bool HasSqlServer { get; set; } = false;
         public string SqlServerVersion { get; set; }
-
         public static SqlInfoDTO FromEntity(SqlInfo i)
         {
             SqlInfoDTO dto = new SqlInfoDTO();

@@ -1,10 +1,7 @@
 ﻿using MachineHealthCheck.Domain.Entities;
 using MachineHealthCheck.Domain.Interfaces;
 using MachineHealthCheck.Domain.Models;
-using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Logging;
-using System.Reflection.PortableExecutable;
 
 namespace MachineHealthCheck.Service
 {
@@ -12,13 +9,11 @@ namespace MachineHealthCheck.Service
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ILogger<MachineInfoService> _logger;
-
         public MachineInfoService(IUnitOfWork unitOfWork, ILogger<MachineInfoService> logger)
         {
             _logger = logger;
             _unitOfWork = unitOfWork;
         }
-
         public async Task Add(MachineInfo machine)
         {
             MachineInfo? m;
@@ -32,13 +27,12 @@ namespace MachineHealthCheck.Service
                 _logger.LogError(ex.Message);
                 return;
             }
-            if (m == null) 
+            if (m == null)
             {
                 machine.isActive = true;
                 await _unitOfWork.Repository<MachineInfo>().InsertAsync(machine, true);
             }
             return;
-           
         }
         public async Task<bool> KeyExists(string key)
         {
@@ -59,7 +53,6 @@ namespace MachineHealthCheck.Service
             }
             return true;
         }
-
         public async Task Delete(string key)
         {
             MachineInfo m;
@@ -76,11 +69,12 @@ namespace MachineHealthCheck.Service
             try
             {
                 await _unitOfWork.BeginTransaction();
-
                 var workRepos = _unitOfWork.Repository<MachineInfo>();
                 var work = await workRepos.FindAsync(m.Id);
                 if (work == null)
+                {
                     throw new KeyNotFoundException();
+                }
                 work.isActive = false;
                 await _unitOfWork.CommitTransaction();
             }
@@ -91,7 +85,6 @@ namespace MachineHealthCheck.Service
                 throw;
             }
         }
-
         public async Task<IList<MachineInfo>> GetAll()
         {
             return await _unitOfWork.Repository<MachineInfo>().GetAllAsync();
@@ -105,7 +98,7 @@ namespace MachineHealthCheck.Service
         {
             return await _unitOfWork.Repository<MachineInfo>().FindAsync(machineId);
         }
-        public async Task<MachineInfoDTO?> Update(string key ,MachineInfoDTO machine)
+        public async Task<MachineInfoDTO?> Update(string key, MachineInfoDTO machine)
         {
             MachineInfo m;
             IQueryable<MachineInfo> info = await _unitOfWork.Repository<MachineInfo>().FindByCondition(m => m.Key == key);
@@ -125,7 +118,9 @@ namespace MachineHealthCheck.Service
                 var workRepos = _unitOfWork.Repository<MachineInfo>();
                 var work = await workRepos.FindAsync(m.Id);
                 if (work == null)
+                {
                     throw new KeyNotFoundException();
+                }
                 work.ClientName = machine.Name;
                 work.MachineName = machine.Machine;
                 work.LastChecked = machine.LastChecked;
@@ -134,7 +129,6 @@ namespace MachineHealthCheck.Service
                 await _unitOfWork.CommitTransaction();
                 machine = MachineInfoDTO.FromMI(work);
                 return machine;
-
             }
             catch (Exception e)
             {

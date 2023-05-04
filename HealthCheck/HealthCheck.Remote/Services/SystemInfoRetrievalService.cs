@@ -7,17 +7,14 @@ namespace MachineHealthCheck.Remote.Services
 {
     internal class SystemInfoRetrievalService
     {
-    
-        static readonly IHardwareInfo hardwareInfo = new HardwareInfo();
+        private readonly IHardwareInfo hardwareInfo;
         public SystemInfoRetrievalService()
-        { 
-           
+        {
+            hardwareInfo = new HardwareInfo();
         }
-
         public HealthCheck GetInfo()
         {
             HealthCheck healthCheck = new HealthCheck();
-
             hardwareInfo.RefreshAll();
             healthCheck.OperatingSystem = hardwareInfo.OperatingSystem.Name;
             healthCheck.OSVersion = hardwareInfo.OperatingSystem.VersionString;
@@ -25,11 +22,9 @@ namespace MachineHealthCheck.Remote.Services
             healthCheck.MemoryInfo = GetMemoryInfo();
             healthCheck.DiskInfo = GetDiskInfo();
             healthCheck.SqlInfo = GetSqlInfo();
- 
             return healthCheck;
         }
-
-        public SqlInfo GetSqlInfo()
+        private SqlInfo GetSqlInfo()
         {
             SqlInfo info = new SqlInfo();
 
@@ -52,7 +47,7 @@ namespace MachineHealthCheck.Remote.Services
             }
             return info;
         }
-        public List<CPUInfo> GetCPUInfo()
+        private List<CPUInfo> GetCPUInfo()
         {
             List<CPUInfo> infoList = new List<CPUInfo>();
             CPUInfo first = new CPUInfo();
@@ -67,7 +62,7 @@ namespace MachineHealthCheck.Remote.Services
                 if (i+1 == 5) first.PercentInUse = (int)cpuUsage.NextValue();
             }
 
-            foreach(var cpu in hardwareInfo.CpuList)
+            foreach (var cpu in hardwareInfo.CpuList)
             {
                 CPUInfo one = new CPUInfo();
                 one.PercentInUse = first.PercentInUse;
@@ -77,10 +72,10 @@ namespace MachineHealthCheck.Remote.Services
                 one.CurrClockSpeed = (int)cpu.CurrentClockSpeed;
                 infoList.Add(one);
             }
-            
+
             return infoList;
         }
-        public MemoryInfo GetMemoryInfo()
+        private MemoryInfo GetMemoryInfo()
         {
             MemoryInfo info = new MemoryInfo();
 
@@ -91,7 +86,7 @@ namespace MachineHealthCheck.Remote.Services
             return info;
 
         }
-        public List<DiskInfo> GetDiskInfo()
+        private List<DiskInfo> GetDiskInfo()
         {
             List<DiskInfo> infoList = new List<DiskInfo>();
             DiskInfo first = new DiskInfo();
@@ -105,7 +100,7 @@ namespace MachineHealthCheck.Remote.Services
                 Thread.Sleep(500);
                 if (i+1 == 5) first.PercentUtilization = disk.NextValue();
             }
-            foreach(var drive in System.IO.DriveInfo.GetDrives())
+            foreach (var drive in System.IO.DriveInfo.GetDrives())
             {
                 DiskInfo one = new DiskInfo();
                 one.PercentUtilization = first.PercentUtilization;

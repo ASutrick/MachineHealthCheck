@@ -9,7 +9,6 @@ namespace MachineHealthCheck.Domain.Models
         public int NumOfLogicalProcessors { get; set; } = 0;
         public int CurrClockSpeed { get; set; } = 0;
         public int PercentInUse { get; set; } = 0;
-
         public static CPUInfoDTO FromEntity(CPUInfo i)
         {
             CPUInfoDTO d = new CPUInfoDTO();

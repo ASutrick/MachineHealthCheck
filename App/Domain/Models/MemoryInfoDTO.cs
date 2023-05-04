@@ -6,7 +6,6 @@ namespace MachineHealthCheck.Domain.Models
     {
         public ulong TotalPhysicalMb { get; set; }
         public double PercentInUse { get; set; }
-
         public static MemoryInfoDTO FromEntity(MemoryInfo i)
         {
             MemoryInfoDTO dto = new MemoryInfoDTO();
@@ -23,5 +22,4 @@ namespace MachineHealthCheck.Domain.Models
             return info;
         }
     }
-   
 }

@@ -37,7 +37,7 @@ namespace MachineHealthCheck.API.Controllers
 
                 return (ActionResult<IList<MachineInfoDTO>>)Ok(returns);
             }
-            catch(Exception ex) 
+            catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
                 return BadRequest(ex.Message);
@@ -45,13 +45,13 @@ namespace MachineHealthCheck.API.Controllers
         }
 
         [HttpPost("Create")]
-        public async Task<ActionResult> CreateMachineInfo([FromBody]MachineInfoDTO m)
+        public async Task<ActionResult> CreateMachineInfo([FromBody] MachineInfoDTO m)
         {
             var item = m.ToMI();
             try
             {
                 bool keyExists = await _machineInfoService.KeyExists(m.Key);
-                if(!keyExists)
+                if (!keyExists)
                 {
                     await _machineInfoService.Add(item);
                 }
@@ -61,12 +61,13 @@ namespace MachineHealthCheck.API.Controllers
                 }
                 return Ok();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
                 return BadRequest(ex.Message);
-            }           
+            }
         }
+
         [HttpDelete("Delete")]
         public async Task<ActionResult> DeleteMachineInfo(string key)
         {
@@ -81,13 +82,14 @@ namespace MachineHealthCheck.API.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
         [HttpPut("Update")]
-        public async Task<ActionResult<MachineInfoDTO>> UpdateMachineInfo(string key,[FromBody] MachineInfoDTO m)
+        public async Task<ActionResult<MachineInfoDTO>> UpdateMachineInfo(string key, [FromBody] MachineInfoDTO m)
         {
             try
             {
-                MachineInfoDTO? updated = await _machineInfoService.Update(key,m);
-                if(updated != null)
+                MachineInfoDTO? updated = await _machineInfoService.Update(key, m);
+                if (updated != null)
                 {
                     return (ActionResult<MachineInfoDTO>)Ok(updated);
                 }
@@ -95,7 +97,7 @@ namespace MachineHealthCheck.API.Controllers
                 {
                     return BadRequest();
                 }
-                
+
             }
             catch (Exception ex)
             {

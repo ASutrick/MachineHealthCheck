@@ -7,9 +7,9 @@ namespace MachineHealthCheck.Service
     public class WorkQueueService : IWorkQueueService
     {
         private readonly IUnitOfWork _unitOfWork;
-        public WorkQueueService(IUnitOfWork unitOfWork) 
+        public WorkQueueService(IUnitOfWork unitOfWork)
         {
-            this._unitOfWork = unitOfWork;
+            _unitOfWork = unitOfWork;
         }
         public async Task<WorkQueue> DequeueWork()
         {
@@ -21,7 +21,9 @@ namespace MachineHealthCheck.Service
                 var workRepos = _unitOfWork.Repository<WorkQueue>();
                 var work = await workRepos.FindAsync(one.Id);
                 if (work == null)
+                {
                     throw new KeyNotFoundException();
+                }
                 work.isActive = false;
                 await _unitOfWork.CommitTransaction();
                 one = work;
@@ -33,7 +35,6 @@ namespace MachineHealthCheck.Service
             }
             return one;
         }
-
         public async Task QueueWork(string key)
         {
             MachineInfo? info;
@@ -42,7 +43,7 @@ namespace MachineHealthCheck.Service
             {
                 info = list.FirstOrDefault();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw new KeyNotFoundException();
             }

@@ -18,7 +18,6 @@ namespace MachineHealthCheck.Remote.Services
             _connection = new HubConnectionBuilder()
                 .WithUrl(SignalrAPI.HubUrl)
                 .Build();
-
             _connection.On<string>(SignalrAPI.Events.HealthCheckRequest, HealthCheckRequest);
         }
         public Task HealthCheckResponse(MachineInfo info, string machineInfo)
@@ -27,7 +26,6 @@ namespace MachineHealthCheck.Remote.Services
         }
         public async Task StartAsync(CancellationToken cancellationToken)
         {
-            // Loop is here to wait until the server is running
             while (true)
             {
                 try
@@ -42,14 +40,12 @@ namespace MachineHealthCheck.Remote.Services
                     await Task.Delay(1000, cancellationToken);
                 }
             }
-
             await _connection.InvokeAsync(SignalrAPI.Events.VerifyKey, _key);
         }
         public async Task StopAsync(CancellationToken cancellationToken)
         {
             await _connection.DisposeAsync();
         }
-
         public Task HealthCheckRequest(string date)
         {
             _logger.LogInformation("Request Recieved: Performing Health Check");

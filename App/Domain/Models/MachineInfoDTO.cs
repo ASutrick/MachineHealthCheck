@@ -4,13 +4,11 @@ namespace MachineHealthCheck.Domain.Models
 {
     public class MachineInfoDTO
     {
-
         public string Name { get; set; } = null!;
         public string? Machine { get; set; }
         public string Key { get; set; } = null!;
         public DateTime? LastChecked { get; set; }
         public bool IsVerified { get; set; }
-        
         public static MachineInfoDTO FromMI(MachineInfo i)
         {
             MachineInfoDTO d = new MachineInfoDTO();
@@ -31,7 +29,7 @@ namespace MachineHealthCheck.Domain.Models
             m.MachineName = Machine;
             m.Key = Key;
             m.isVerified = false;
-            return m;   
+            return m;
         }
     }
 }
