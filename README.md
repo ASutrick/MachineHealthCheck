@@ -12,7 +12,7 @@ Requirements:
 
 2. Install the required NuGet and NPM packages
 
-3. Create a database for the project in Microsoft SQL Server and set the connection string in MachineHealthCheck/App/appsetting.json. You do not need to create any tables manually
+3. Create a database for the project in Microsoft SQL Server and set the connection string in MachineHealthCheck/App/MachineHealthCkeck.API/appsetting.json. You do not need to create any tables manually
 
 4. Set MachineHealthCheck.API, HealthCheck.Host, and HealthCheck.Remote as startup projects
 
