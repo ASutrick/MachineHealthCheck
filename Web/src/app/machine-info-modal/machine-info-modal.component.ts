@@ -78,9 +78,9 @@ export class MachineInfoModalComponent {
   }
 
   closeModal(): void {
-    if (this.modalRef.onClose) {
+    if (this.startCheck == true)
+    {
       this.dataService.stopWorkQueue().subscribe((res) => {
-        console.log(res);
       });
     }
     this.modalRef.close();

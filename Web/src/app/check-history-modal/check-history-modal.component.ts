@@ -4,6 +4,7 @@ import { MdbModalRef } from 'mdb-angular-ui-kit/modal';
 import { HealthCheckInfo } from '../interfaces/HealthCheckInfo';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
+
 @Component({
   selector: 'app-check-history-modal',
   templateUrl: './check-history-modal.component.html',
@@ -23,7 +24,7 @@ export class CheckHistoryModalComponent {
   public key: string = "";
   public healthCheckInfo: HealthCheckInfo | undefined;
   public healthCheckData: any;
-  public displayedColumns = ["Last Check-In", "Details"];
+  public displayedColumns = ["Last Check-In"];
 
   constructor(
     public dataService: DataService,
@@ -32,7 +33,7 @@ export class CheckHistoryModalComponent {
   ) {}
 
   ngOnInit(): void {
-    console.log(this.getHealthCheckInfo());
+    this.getHealthCheckInfo();
   }
 
   getHealthCheckInfo() {
@@ -57,12 +58,6 @@ export class CheckHistoryModalComponent {
     else if(bytes < gigaBytes) return(bytes / megaBytes).toFixed(decimal) + " MB";
     // return GB if less than a TB
     else return(bytes / gigaBytes).toFixed(decimal) + " GB";
-  }
-
-  isExpansionDetailRow = (i: number, row: Object) => row.hasOwnProperty('detailRow');
-    expandedElement: any;
-    test() {
-      console.log('test');
   }
 
   closeModal(): void {

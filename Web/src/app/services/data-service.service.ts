@@ -20,7 +20,6 @@ export class DataService {
     return this.http.get(`${this.urlString}MachineInfo/ListMachineInfos`)
       .pipe(
         map((res:any) => {
-          console.log(res);
           return res;
       })
     )
@@ -30,7 +29,6 @@ export class DataService {
     return this.http.get(`${this.urlString}HealthCheck/List?key=` + key)
       .pipe(
         map((res:any) => {
-          console.log(res);
           return res;
       })
     )
@@ -52,7 +50,6 @@ export class DataService {
     return this.http.post(`${this.urlString}WorkQueue/Create?key=` + key, null)
       .pipe(
         map((res:any) => {
-          console.log(res);
           return res;
       })
     )
@@ -62,7 +59,6 @@ export class DataService {
     return this.http.post(`${this.urlString}WorkQueue/WaitCreate?key=` + key, null)
       .pipe(
         map((res:any) => {
-          console.log(res);
           return res;
       })
     )
@@ -72,7 +68,6 @@ export class DataService {
     return this.http.post<any>(`${this.urlString}MachineInfo/Create`, model)
       .pipe(
         map((res:any) => {
-          console.log(res);
           return res;
       })
     )
@@ -82,7 +77,6 @@ export class DataService {
     return this.http.delete(`${this.urlString}MachineInfo/Delete?key=` + key)
       .pipe(
         map((res:any) => {
-          console.log(res);
           return res;
       })
     )
@@ -92,7 +86,6 @@ export class DataService {
     return this.http.delete(`${this.urlString}WorkQueue/Delete`)
       .pipe(
         map((res:any) => {
-          console.log(res);
           return res;
       })
     )
